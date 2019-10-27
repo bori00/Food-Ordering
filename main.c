@@ -73,6 +73,19 @@ struct user
     char password[25];
 };
 
+void userLogin(struct user *myUser)
+{
+    char c;
+    printf("Please sign in to continue\n");
+    printf("---Username\n");
+    scanf("%s", myUser->name);
+    while((c=getchar()!='\n' && c!=EOF));
+    printf("---Password\n");
+    scanf("%s", myUser->password);
+    while((c=getchar()!='\n' && c!=EOF));
+    printf("Thank you!\n");
+}
+
 
 
 int main() {
@@ -86,14 +99,15 @@ int main() {
     fillMenuWithMyData(&thisMenu);
 
     //printf("%s", thisMenu.specFoods[2][3]);
-    /*while(state<6)
+    while(state<2)
     {
         switch(state)
         {
-            case 1: readUserData(&thisUser);
+            case 1: userLogin(&thisUser);
                 state++;
+                //printf("Your password is %s", thisUser.password);
                 break;
-            case 2: if(getCarBrand(&thisCar)) state++;
+            /*case 2: if(getCarBrand(&thisCar)) state++;
                 else state--;
                 // printf("the adress of main car is %d", &thisCar);
                 //printf("in main the brand is %d\n", thisCar.brandNr);
@@ -106,10 +120,10 @@ int main() {
                 break;
             case 5: if(signContract(thisUser, thisCar)) state++;
                 else state--;
-                break;
+                break;*/
         }
 
-    }*/
-    printf("Contract signed! Enjoy your new car!\n");
+    }
+    //printf("Contract signed! Enjoy your new car!\n");
     return 0;
 }
