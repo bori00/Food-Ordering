@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <conio.h>
 #include <stdbool.h>
 
 struct menu
@@ -71,6 +72,7 @@ struct user
 {
     char name[25];
     char password[25];
+    struct order hisOrder;
 };
 
 void userLogin(struct user *myUser)
@@ -86,6 +88,53 @@ void userLogin(struct user *myUser)
     printf("Thank you!\n");
 }
 
+bool correctAnswer(char choice, char min, char max)
+{
+    if(choice>=min && choice<=max) return true;
+    return false;
+}
+
+bool chooseFoodType(struct order *myOrder, struct menu myMenu)
+{
+    char choice;
+    do {
+        printf("Please choose the food you feel like eating today:\n");
+        for (int i = 0; i <=myMenu.foodTypeNr-1; i++) {
+            putchar('a' + i);
+            printf(") %s\n", myMenu.foodTypes[i]);
+        }
+        printf("%c) go back\n", (char)'a'+myMenu.foodTypeNr);
+        //while ((c = getchar()) != '\n' && c != EOF) { } //clean buffer
+        choice = getch();
+    }while(!correctAnswer(choice, 'a', (char)('a'+myMenu.foodTypeNr)));
+    if(choice!='a'+myMenu.foodTypeNr)
+    {
+        myOrder->foodType=choice-'a';
+        return 1;
+    }
+    return 0; //case go back
+}
+
+bool chooseSpecFood(struct order *myOrder, struct menu myMenu)
+{
+    char choice, c;
+    do {
+        printf("Please choose the type of %s\n", myMenu.foodTypes[myOrder->foodType]);
+        for (int i = 0; i <=myMenu.specFoodNr[myOrder->foodType]-1; i++) {
+            putchar('a' + i);
+            printf(") %s\n", myMenu.specFoods[myOrder->foodType][i]);
+        }
+        printf("%c) go back\n", (char)'a'+myMenu.specFoodNr[myOrder->foodType]);
+        while ((choice = getchar()) == '\n' || choice == EOF) { } //clean buffer
+    }while(!correctAnswer(choice, 'a', (char)('a'+myMenu.specFoodNr[myOrder->foodType])));
+    if(choice!='a'+myMenu.specFoodNr[myOrder->foodType])
+    {
+        myOrder->specFood=choice-'a';
+        return 1;
+    }
+    return 0; //case go back
+}
+
 
 
 int main() {
@@ -99,7 +148,7 @@ int main() {
     fillMenuWithMyData(&thisMenu);
 
     //printf("%s", thisMenu.specFoods[2][3]);
-    while(state<2)
+    while(state<4)
     {
         switch(state)
         {
@@ -107,15 +156,15 @@ int main() {
                 state++;
                 //printf("Your password is %s", thisUser.password);
                 break;
-            /*case 2: if(getCarBrand(&thisCar)) state++;
+            case 2: if(chooseFoodType(&thisUser.hisOrder, thisMenu)) state++;
                 else state--;
                 // printf("the adress of main car is %d", &thisCar);
                 //printf("in main the brand is %d\n", thisCar.brandNr);
                 break;
-            case 3: if(getCarModel(&thisCar)) state++;
+            case 3: if(chooseSpecFood(&thisUser.hisOrder, thisMenu)) state++;
                 else state--;
                 break;
-            case 4: if(chooseAdditionalItems(&thisCar)) state++;
+            /*case 4: if(chooseAdditionalItems(&thisCar)) state++;
                 else state--;
                 break;
             case 5: if(signContract(thisUser, thisCar)) state++;
