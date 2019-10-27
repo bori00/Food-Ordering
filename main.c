@@ -122,7 +122,7 @@ bool chooseSpecFood(struct order *myOrder, struct menu myMenu)
         printf("Please choose the type of %s\n", myMenu.foodTypes[myOrder->foodType]);
         for (int i = 0; i <=myMenu.specFoodNr[myOrder->foodType]-1; i++) {
             putchar('a' + i);
-            printf(") %s\n", myMenu.specFoods[myOrder->foodType][i]);
+            printf(") %s %.2lf\n", myMenu.specFoods[myOrder->foodType][i], myMenu.specFoodsPrice[myOrder->foodType][i]);
         }
         printf("%c) go back\n", (char)'a'+myMenu.specFoodNr[myOrder->foodType]);
         while ((choice = getchar()) == '\n' || choice == EOF) { } //clean buffer
@@ -133,6 +133,56 @@ bool chooseSpecFood(struct order *myOrder, struct menu myMenu)
         return 1;
     }
     return 0; //case go back
+}
+
+bool selectDrink(struct order *myOrder, struct menu myMenu)
+{
+    char choice;
+    do {
+        printf("Please choose a drink to go with your %s\n",  myMenu.foodTypes[myOrder->foodType]);
+        for (int i = 0; i <=myMenu.drinkNr-1; i++) {
+            putchar('a' + i);
+            printf(") %s\n", myMenu.drinks[i]);
+        }
+        printf("%c) go back\n", (char)'a'+myMenu.drinkNr);
+        while ((choice = getchar()) == '\n' || choice == EOF) { } //clean buffer
+        //choice = getch();
+    }while(!correctAnswer(choice, 'a', (char)('a'+myMenu.drinkNr)));
+    if(choice!='a'+myMenu.drinkNr)
+    {
+        myOrder->drink=choice-'a';
+        return 1;
+    }
+    return 0; //case go back
+}
+
+bool chooseCutlery(struct order *myOrder, struct menu myMenu)
+{
+    char choice;
+    do {
+        printf("Do you want cutlery?\n");
+        printf("a) yes\n");
+        printf("b) no\n");
+        printf("c) go back\n");
+        while ((choice = getchar()) == '\n' || choice == EOF) { } //clean buffer
+        //choice = getch();
+    }while(!correctAnswer(choice, 'a', 'c'));
+    switch(choice)
+    {
+        case 'a': myOrder->cutlery=true;
+                return 1;
+        case 'b': myOrder->cutlery=false;
+                return 1;
+        case 'c': return 0;
+    }
+}
+
+void getAdditionalInfo(struct order *myOrder)
+{
+    printf("Any additional info?\n");
+    char c;
+    while((c=getchar())!='\n' && c!=EOF);
+    gets(myOrder->additionalInfo);
 }
 
 
@@ -148,7 +198,7 @@ int main() {
     fillMenuWithMyData(&thisMenu);
 
     //printf("%s", thisMenu.specFoods[2][3]);
-    while(state<4)
+    while(state<7)
     {
         switch(state)
         {
@@ -164,12 +214,15 @@ int main() {
             case 3: if(chooseSpecFood(&thisUser.hisOrder, thisMenu)) state++;
                 else state--;
                 break;
-            /*case 4: if(chooseAdditionalItems(&thisCar)) state++;
+            case 4: if(selectDrink(&thisUser.hisOrder, thisMenu)) state++;
                 else state--;
                 break;
-            case 5: if(signContract(thisUser, thisCar)) state++;
+            case 5: if(chooseCutlery(&thisUser.hisOrder, thisMenu)) state++;
                 else state--;
-                break;*/
+                break;
+            case 6: getAdditionalInfo(&thisUser.hisOrder);
+                    state++;
+                    break;
         }
 
     }
