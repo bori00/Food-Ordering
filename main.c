@@ -142,7 +142,7 @@ bool selectDrink(struct order *myOrder, struct menu myMenu)
         printf("Please choose a drink to go with your %s\n",  myMenu.foodTypes[myOrder->foodType]);
         for (int i = 0; i <=myMenu.drinkNr-1; i++) {
             putchar('a' + i);
-            printf(") %s\n", myMenu.drinks[i]);
+            printf(") %s %d\n", myMenu.drinks[i], myMenu.drinksPrice[i]);
         }
         printf("%c) go back\n", (char)'a'+myMenu.drinkNr);
         while ((choice = getchar()) == '\n' || choice == EOF) { } //clean buffer
@@ -185,6 +185,37 @@ void getAdditionalInfo(struct order *myOrder)
     gets(myOrder->additionalInfo);
 }
 
+int signOrder(struct user myUser, struct menu myMenu)
+{
+    printf("This is your order:\n-------------------\n");
+    printf("Name: %s\n", myUser.name);
+    printf("Food items:\n");
+    printf("---%s\n", myMenu.specFoods[myUser.hisOrder.foodType][myUser.hisOrder.specFood]);
+    printf("---%s\n", myMenu.drinks[myUser.hisOrder.drink]);
+    printf("Cutlery: ");
+    if(myUser.hisOrder.cutlery) printf("yes\n");
+    else printf("No\n");
+    printf("Additional info: %s\n", myUser.hisOrder.additionalInfo);
+    printf("Payment amount: %lf\n", myMenu.specFoodsPrice[myUser.hisOrder.foodType][myUser.hisOrder.specFood]+myMenu.drinksPrice[myUser.hisOrder.drink]);
+    char choice;
+    printf("-------------------\n");
+    do {
+        printf("a) Sign\n");
+        printf("b) go back\n");
+        while ((choice = getchar()) == '\n' || choice == EOF) { } //clean buffer
+        //choice = getch();
+    }while(!correctAnswer(choice, 'a', 'b'));
+    switch(choice)
+    {
+        case 'a': return 1;
+                break;
+        case 'b': return 0;
+
+    }
+
+
+}
+
 
 
 int main() {
@@ -198,7 +229,7 @@ int main() {
     fillMenuWithMyData(&thisMenu);
 
     //printf("%s", thisMenu.specFoods[2][3]);
-    while(state<7)
+    while(state<8)
     {
         switch(state)
         {
@@ -223,9 +254,12 @@ int main() {
             case 6: getAdditionalInfo(&thisUser.hisOrder);
                     state++;
                     break;
+            case 7: if(signOrder(thisUser, thisMenu)) state++;
+                    else state--;
+                    break;
         }
 
     }
-    //printf("Contract signed! Enjoy your new car!\n");
+    printf("Contract signed! Enjoy your meal!\n");
     return 0;
 }
