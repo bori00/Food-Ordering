@@ -228,12 +228,12 @@ int signOrder(struct user myUser, struct menu myMenu)
 int main() {
     printf("Welcome to our restaurant! \n");
 
-    /*int state = 1; //1-userdata, 2-brand, 3-model, 4-add item, 5-sign contract, 6 end
+    int state = 1; //1-userdata, 2-brand, 3-model, 4-add item, 5-sign contract, 6 end
 
     struct user thisUser;
     struct menu thisMenu;
 
-    fillMenuWithMyData(&thisMenu);*/
+    fillMenuWithMyData(&thisMenu);
 
     //printf("%s", thisMenu.specFoods[2][3]);
     while(state<8)
