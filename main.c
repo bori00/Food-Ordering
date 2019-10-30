@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <conio.h>
 #include <stdbool.h>
+#include <string.h>
 
 struct menu
 {
@@ -56,6 +57,7 @@ void fillMenuWithMyData(struct menu *myMenu)
     myMenu->drinksPrice[1]=5;
     myMenu->drinksPrice[2]=5;
     myMenu->drinksPrice[3]=4;
+    myMenu->drinksPrice[4]=0;
 }
 
 struct order
@@ -64,6 +66,7 @@ struct order
     int specFood; //whick kind of pizza/pasta/salad?
     int drink; //0-cola, 1-fanta, 2-lipton, 3-water, 4-nothing
     bool cutlery;
+    bool existsAdditionalInfo;
     char additionalInfo[100];
 
 };
@@ -183,6 +186,8 @@ void getAdditionalInfo(struct order *myOrder)
     char c;
     while((c=getchar())!='\n' && c!=EOF);
     gets(myOrder->additionalInfo);
+    if(strcmp(myOrder->additionalInfo, "")!=0) myOrder->existsAdditionalInfo=true;
+    else myOrder->existsAdditionalInfo=false;
 }
 
 int signOrder(struct user myUser, struct menu myMenu)
@@ -195,7 +200,7 @@ int signOrder(struct user myUser, struct menu myMenu)
     printf("Cutlery: ");
     if(myUser.hisOrder.cutlery) printf("yes\n");
     else printf("No\n");
-    printf("Additional info: %s\n", myUser.hisOrder.additionalInfo);
+    if(myUser.hisOrder.existsAdditionalInfo) printf("Additional info: %s\n", myUser.hisOrder.additionalInfo);
     printf("Payment amount: %lf\n", myMenu.specFoodsPrice[myUser.hisOrder.foodType][myUser.hisOrder.specFood]+myMenu.drinksPrice[myUser.hisOrder.drink]);
     char choice;
     printf("-------------------\n");
@@ -255,7 +260,7 @@ int main() {
                     state++;
                     break;
             case 7: if(signOrder(thisUser, thisMenu)) state++;
-                    else state--;
+                    else state-=2;
                     break;
         }
 
