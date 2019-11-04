@@ -6,6 +6,7 @@
 #include "user.h"
 #include "choice.h"
 
+#define MAX_STATE 7
 
 int main() {
     printf("Welcome to our restaurant! \n");
@@ -18,7 +19,7 @@ int main() {
     fillMenuWithMyData(&thisMenu);
 
     //printf("%s", thisMenu.specFoods[2][3]);
-    while(state<8)
+    while(state<MAX_STATE)
     {
         switch(state)
         {
