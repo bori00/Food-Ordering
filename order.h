@@ -18,9 +18,13 @@ struct order
 
 };
 
+void displayFoodTypeOptions(struct order myOrder, struct menu myMenu);
 bool hasChosenFoodType(struct order *myOrder, struct menu myMenu);
+void displaySpecFoodOptions(struct order myOrder, struct menu myMenu);
 bool hasChosenSpecFood(struct order *myOrder, struct menu myMenu);
+void displayDrinkOptions(struct order myOrder, struct menu myMenu);
 bool hasSelectedDrink(struct order *myOrder, struct menu myMenu);
+void displayCutleryOptions();
 bool hasDecidedAboutCutlery(struct order *myOrder, struct menu myMenu);
 void getAdditionalInfo(struct order *myOrder);
 

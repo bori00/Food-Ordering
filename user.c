@@ -25,7 +25,7 @@ void displayUserData(struct user myUser)
     printf("Name: %s\n", myUser.name);
 }
 
-void displayHisOrderDetails(struct user myUser, struct menu myMenu)
+void displayOrderDetails(struct user myUser, struct menu myMenu)
 {
     printf("Food items:\n");
     printf("---%s\n", myMenu.specFoods[myUser.hisOrder.foodType][myUser.hisOrder.specFood]);
@@ -41,7 +41,7 @@ bool signedOrder(struct user myUser, struct menu myMenu)
 {
     printf("This is your order:\n-------------------\n");
     displayUserData(myUser);
-    displayHisOrderDetails(myUser, myMenu);
+    displayOrderDetails(myUser, myMenu);
     printf("-------------------\n");
     printf("a) Sign\n");
     printf("b) go back\n");

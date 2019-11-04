@@ -14,11 +14,10 @@ bool correctAnswer(char choice, char min, char max)
 
 int getChoiceIndex(int nrOfChoices)
 {
-    char choice="t";
+    char choice;
     char c;
     do {
         printf("Please choose any of the possible options!\n");
-        //printf("choice=%c\n", choice);
         choice = getch();
         while ((c = getchar()) != '\n' && c != EOF) { }
     }while(!correctAnswer(choice, 'a', (char)('a'+nrOfChoices)));

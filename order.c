@@ -9,7 +9,7 @@
 #include "order.h"
 #include "choice.h"
 
-bool hasChosenFoodType(struct order *myOrder, struct menu myMenu)
+void displayFoodTypeOptions(struct order myOrder, struct menu myMenu)
 {
     printf("Please choose the food you feel like eating today:\n");
     for (int i = 0; i <=myMenu.foodTypeNr-1; i++) {
@@ -17,6 +17,11 @@ bool hasChosenFoodType(struct order *myOrder, struct menu myMenu)
         printf(") %s\n", myMenu.foodTypes[i]);
     }
     printf("%c) go back\n", (char)'a'+myMenu.foodTypeNr);
+}
+
+bool hasChosenFoodType(struct order *myOrder, struct menu myMenu)
+{
+    displayFoodTypeOptions(*myOrder, myMenu);
     int choiceIndex = getChoiceIndex(myMenu.foodTypeNr+1);
     if(choiceIndex<myMenu.foodTypeNr) //case has chosen a foodType
     {
@@ -26,14 +31,19 @@ bool hasChosenFoodType(struct order *myOrder, struct menu myMenu)
     return 0; //case go back
 }
 
+void displaySpecFoodOptions(struct order myOrder, struct menu myMenu)
+{
+    printf("Please choose the type of %s\n", myMenu.foodTypes[myOrder.foodType]);
+    for (int i = 0; i <=myMenu.specFoodNr[myOrder.foodType]-1; i++) {
+        putchar('a' + i);
+        printf(") %s %.2lf\n", myMenu.specFoods[myOrder.foodType][i], myMenu.specFoodsPrice[myOrder.foodType][i]);
+    }
+    printf("%c) go back\n", (char)'a'+myMenu.specFoodNr[myOrder.foodType]);
+}
+
 bool hasChosenSpecFood(struct order *myOrder, struct menu myMenu)
 {
-    printf("Please choose the type of %s\n", myMenu.foodTypes[myOrder->foodType]);
-    for (int i = 0; i <=myMenu.specFoodNr[myOrder->foodType]-1; i++) {
-        putchar('a' + i);
-        printf(") %s %.2lf\n", myMenu.specFoods[myOrder->foodType][i], myMenu.specFoodsPrice[myOrder->foodType][i]);
-    }
-    printf("%c) go back\n", (char)'a'+myMenu.specFoodNr[myOrder->foodType]);
+    displaySpecFoodOptions(*myOrder, myMenu);
     int choiceIndex = getChoiceIndex(myMenu.specFoodNr[myOrder->foodType]+1);
     if(choiceIndex<myMenu.specFoodNr[myOrder->foodType]) //case has chosen a foodType
     {
@@ -43,14 +53,19 @@ bool hasChosenSpecFood(struct order *myOrder, struct menu myMenu)
     return 0; //case go back
 }
 
-bool hasSelectedDrink(struct order *myOrder, struct menu myMenu)
+void displayDrinkOptions(struct order myOrder, struct menu myMenu)
 {
-    printf("Please choose a drink to go with your %s\n",  myMenu.foodTypes[myOrder->foodType]);
+    printf("Please choose a drink to go with your %s\n",  myMenu.foodTypes[myOrder.foodType]);
     for (int i = 0; i <=myMenu.drinkNr-1; i++) {
         putchar('a' + i);
         printf(") %s %d\n", myMenu.drinks[i], myMenu.drinksPrice[i]);
     }
     printf("%c) go back\n", (char)'a'+myMenu.drinkNr);
+}
+
+bool hasSelectedDrink(struct order *myOrder, struct menu myMenu)
+{
+    displayDrinkOptions(*myOrder, myMenu);
     int choiceIndex = getChoiceIndex(myMenu.drinkNr+1);
     if(choiceIndex<myMenu.drinkNr) //case has chosen a foodType
     {
@@ -60,12 +75,17 @@ bool hasSelectedDrink(struct order *myOrder, struct menu myMenu)
     return 0; //case go back
 }
 
-bool hasDecidedAboutCutlery(struct order *myOrder, struct menu myMenu)
+void displayCutleryOptions()
 {
     printf("Do you want cutlery?\n");
     printf("a) yes\n");
     printf("b) no\n");
     printf("c) go back\n");
+}
+
+bool hasDecidedAboutCutlery(struct order *myOrder, struct menu myMenu)
+{
+    displayCutleryOptions();
     int choiceIndex = getChoiceIndex(3);
     switch(choiceIndex)
     {

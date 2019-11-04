@@ -17,7 +17,7 @@ struct user
 
 void userLogin(struct user *myUser);
 void displayUserData(struct user myUser);
-void displayHisOrderDetails(struct user myUser, struct menu myMenu);
+void displayOrderDetails(struct user myUser, struct menu myMenu);
 bool signedOrder(struct user myUser, struct menu myMenu);
 
 #endif //FOODORDERING_USER_H

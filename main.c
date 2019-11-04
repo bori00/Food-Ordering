@@ -6,19 +6,16 @@
 #include "user.h"
 #include "choice.h"
 
-#define MAX_STATE 7
+#define MAX_STATE 8
 
 int main() {
     printf("Welcome to our restaurant! \n");
 
-    int state = 1; //1-userdata, 2-brand, 3-model, 4-add item, 5-sign contract, 6 end
-
+    int state = 1;
     struct user thisUser;
     struct menu thisMenu;
-
     fillMenuWithMyData(&thisMenu);
 
-    //printf("%s", thisMenu.specFoods[2][3]);
     while(state<MAX_STATE)
     {
         switch(state)
