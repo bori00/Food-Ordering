@@ -24,3 +24,9 @@ int getChoiceIndex(int nrOfChoices)
     return choice-'a';
 }
 
+void goToNextState(int* step, int nrForwardOptions, int optionChosen, int goBackNr) //optionChosen is indexed for 0
+{
+    if(optionChosen+1<=nrForwardOptions) (*step)++;
+    else (*step)-=goBackNr;
+}
+

@@ -9,6 +9,7 @@
 #include "order.h"
 #include "choice.h"
 
+
 void displayFoodTypeOptions(struct order myOrder, struct menu myMenu)
 {
     printf("Please choose the food you feel like eating today:\n");
@@ -19,16 +20,15 @@ void displayFoodTypeOptions(struct order myOrder, struct menu myMenu)
     printf("%c) go back\n", (char)'a'+myMenu.foodTypeNr);
 }
 
-bool hasChosenFoodType(struct order *myOrder, struct menu myMenu)
+void hasChosenFoodType(struct order *myOrder, struct menu myMenu, int* step)
 {
     displayFoodTypeOptions(*myOrder, myMenu);
     int choiceIndex = getChoiceIndex(myMenu.foodTypeNr+1);
-    if(choiceIndex<myMenu.foodTypeNr) //case has chosen a foodType
+    goToNextState(step, myMenu.foodTypeNr, choiceIndex, 1);
+    if(choiceIndex<myMenu.drinkNr)
     {
         myOrder->foodType=choiceIndex;
-        return 1;
     }
-    return 0; //case go back
 }
 
 void displaySpecFoodOptions(struct order myOrder, struct menu myMenu)
@@ -41,16 +41,15 @@ void displaySpecFoodOptions(struct order myOrder, struct menu myMenu)
     printf("%c) go back\n", (char)'a'+myMenu.specFoodNr[myOrder.foodType]);
 }
 
-bool hasChosenSpecFood(struct order *myOrder, struct menu myMenu)
+void hasChosenSpecFood(struct order *myOrder, struct menu myMenu, int* step)
 {
     displaySpecFoodOptions(*myOrder, myMenu);
     int choiceIndex = getChoiceIndex(myMenu.specFoodNr[myOrder->foodType]+1);
-    if(choiceIndex<myMenu.specFoodNr[myOrder->foodType]) //case has chosen a foodType
+    goToNextState(step, myMenu.specFoodNr[myOrder->foodType], choiceIndex, 1);
+    if(choiceIndex<myMenu.specFoodNr[myOrder->foodType])
     {
         myOrder->specFood=choiceIndex;
-        return 1;
     }
-    return 0; //case go back
 }
 
 void displayDrinkOptions(struct order myOrder, struct menu myMenu)
@@ -63,16 +62,15 @@ void displayDrinkOptions(struct order myOrder, struct menu myMenu)
     printf("%c) go back\n", (char)'a'+myMenu.drinkNr);
 }
 
-bool hasSelectedDrink(struct order *myOrder, struct menu myMenu)
+void hasSelectedDrink(struct order *myOrder, struct menu myMenu, int* step)
 {
     displayDrinkOptions(*myOrder, myMenu);
     int choiceIndex = getChoiceIndex(myMenu.drinkNr+1);
+    goToNextState(step, myMenu.drinkNr, choiceIndex, 1);
     if(choiceIndex<myMenu.drinkNr) //case has chosen a foodType
     {
         myOrder->drink=choiceIndex;
-        return 1;
     }
-    return 0; //case go back
 }
 
 void displayCutleryOptions()
@@ -83,25 +81,25 @@ void displayCutleryOptions()
     printf("c) go back\n");
 }
 
-bool hasDecidedAboutCutlery(struct order *myOrder, struct menu myMenu)
+void hasDecidedAboutCutlery(struct order *myOrder, struct menu myMenu, int* step)
 {
     displayCutleryOptions();
     int choiceIndex = getChoiceIndex(3);
+    goToNextState(step, 2, choiceIndex, 1);
     switch(choiceIndex)
     {
         case 0: myOrder->cutlery=true;
-            return 1;
+                break;
         case 1: myOrder->cutlery=false;
-            return 1;
-        case 2: return 0;
+                break;
     }
 }
 
-void getAdditionalInfo(struct order *myOrder)
+void getAdditionalInfo(struct order *myOrder, int* step)
 {
     printf("Any additional info?\n");
-    char c;
     gets(myOrder->additionalInfo);
     if(strcmp(myOrder->additionalInfo, "")!=0) myOrder->existsAdditionalInfo=true;
     else myOrder->existsAdditionalInfo=false;
+    (*step)++;
 }

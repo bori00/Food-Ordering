@@ -22,27 +22,18 @@ int main() {
         {
             case 1: userLogin(&thisUser);
                 state++;
-                //printf("Your password is %s", thisUser.password);
                 break;
-            case 2: if(hasChosenFoodType(&thisUser.hisOrder, thisMenu)) state++;
-                else state--;
-                // printf("the adress of main car is %d", &thisCar);
-                //printf("in main the brand is %d\n", thisCar.brandNr);
+            case 2: hasChosenFoodType(&thisUser.hisOrder, thisMenu, &state);
                 break;
-            case 3: if(hasChosenSpecFood(&thisUser.hisOrder, thisMenu)) state++;
-                else state--;
+            case 3: hasChosenSpecFood(&thisUser.hisOrder, thisMenu, &state);
                 break;
-            case 4: if(hasSelectedDrink(&thisUser.hisOrder, thisMenu)) state++;
-                else state--;
+            case 4: hasSelectedDrink(&thisUser.hisOrder, thisMenu, &state);
                 break;
-            case 5: if(hasDecidedAboutCutlery(&thisUser.hisOrder, thisMenu)) state++;
-                else state--;
+            case 5: hasDecidedAboutCutlery(&thisUser.hisOrder, thisMenu, &state);
                 break;
-            case 6: getAdditionalInfo(&thisUser.hisOrder);
-                    state++;
+            case 6: getAdditionalInfo(&thisUser.hisOrder, &state);
                     break;
-            case 7: if(signedOrder(thisUser, thisMenu)) state++;
-                    else state-=2;
+            case 7: signedOrder(thisUser, thisMenu, &state);
                     break;
         }
 

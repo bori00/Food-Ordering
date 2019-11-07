@@ -37,7 +37,7 @@ void displayOrderDetails(struct user myUser, struct menu myMenu)
     printf("Payment amount: %lf\n", myMenu.specFoodsPrice[myUser.hisOrder.foodType][myUser.hisOrder.specFood]+myMenu.drinksPrice[myUser.hisOrder.drink]);
 }
 
-bool signedOrder(struct user myUser, struct menu myMenu)
+void  signedOrder(struct user myUser, struct menu myMenu, int* state)
 {
     printf("This is your order:\n-------------------\n");
     displayUserData(myUser);
@@ -46,11 +46,6 @@ bool signedOrder(struct user myUser, struct menu myMenu)
     printf("a) Sign\n");
     printf("b) go back\n");
     int choiceIndex = getChoiceIndex(2);
-    switch(choiceIndex)
-    {
-        case 0: return 1;
-            break;
-        case 1: return 0;
-    }
+   goToNextState(state, 1, choiceIndex, 2);
 }
 

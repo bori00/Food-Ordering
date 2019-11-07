@@ -19,13 +19,13 @@ struct order
 };
 
 void displayFoodTypeOptions(struct order myOrder, struct menu myMenu);
-bool hasChosenFoodType(struct order *myOrder, struct menu myMenu);
+void hasChosenFoodType(struct order *myOrder, struct menu myMenu, int *step);
 void displaySpecFoodOptions(struct order myOrder, struct menu myMenu);
-bool hasChosenSpecFood(struct order *myOrder, struct menu myMenu);
+void hasChosenSpecFood(struct order *myOrder, struct menu myMenu, int *step);
 void displayDrinkOptions(struct order myOrder, struct menu myMenu);
-bool hasSelectedDrink(struct order *myOrder, struct menu myMenu);
+void hasSelectedDrink(struct order *myOrder, struct menu myMenu, int *step);
 void displayCutleryOptions();
-bool hasDecidedAboutCutlery(struct order *myOrder, struct menu myMenu);
-void getAdditionalInfo(struct order *myOrder);
+void hasDecidedAboutCutlery(struct order *myOrder, struct menu myMenu, int *step);
+void getAdditionalInfo(struct order *myOrder, int* step);
 
 #endif //FOODORDERING_ORDER_H
