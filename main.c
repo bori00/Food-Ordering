@@ -12,20 +12,15 @@ int main() {
     struct user thisUser;
     menu thisMenu;
     loadDataToMenu(&thisMenu);
-    printf("the third foodType is 1%s\n", thisMenu.foodTypes[0]);
-    printf("the second foodType is 2%s\n", thisMenu.foodTypes[1]);
 
     while(state<MAX_STATE)
     {
-        printf("the first foodType is 3%s\n", thisMenu.foodTypes[0]);
         switch(state)
         {
-            case 1: printf("the first foodType is 4%s\n", thisMenu.foodTypes[0]);
-                userLogin(&thisUser);
+            case 1: userLogin(&thisUser);
                 state++;
                 break;
-            case 2: printf("the first foodType is %s\n", thisMenu.foodTypes[0]);
-                chooseFoodType(&thisUser.hisOrder, thisMenu, &state);
+            case 2: chooseFoodType(&thisUser.hisOrder, thisMenu, &state);
                 break;
             case 3: chooseSpecFood(&thisUser.hisOrder, thisMenu, &state);
                 break;

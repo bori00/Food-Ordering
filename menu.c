@@ -4,6 +4,7 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "menu.h"
 #include <stdio.h>
 #include "dataProcessing.h"
@@ -73,62 +74,42 @@ void allocateMemoryForStrings(menu* myMenu)
     }
 }
 
+void readFoodData(FILE* menuFile, menu* myMenu)
+{
+    if(menuFile==stdin) printf(">");
+    fscanf(menuFile, "%d", &myMenu->foodTypeNr);
+    char* c, endl,  thisFoodTypeData[MAX_LINE_LENGTH];
+    while((endl=fgetc(menuFile))!='\n' && endl!=EOF);
+    for(int i=0; i<myMenu->foodTypeNr; i++) {
+        if(menuFile==stdin) printf(">");
+        fgets(thisFoodTypeData, MAX_LINE_LENGTH, menuFile);
+        extractStringUntilChar(myMenu->foodTypes[i], thisFoodTypeData, ':');
+        myMenu->specFoodNr[i]=0;
+        splitIntoParts(thisFoodTypeData, myMenu->specFoods[i], myMenu->specFoodsPrice[i], &myMenu->specFoodNr[i]);
+    }
+}
+
+void readDrinkData(FILE* menuFile, menu* myMenu)
+{
+    if(menuFile==stdin) printf(">");
+    fscanf(menuFile, "%d", &myMenu->drinkNr);
+    if(menuFile==stdin) printf(">");
+    char* c, endl,  thisFoodTypeData[MAX_LINE_LENGTH];
+    while((endl=fgetc(menuFile))!='\n' && endl!=EOF);
+    char drinksData[MAX_LINE_LENGTH];
+    if(menuFile==stdin) printf(">");
+    fgets(drinksData, MAX_LINE_LENGTH, menuFile);
+    splitIntoParts(drinksData, myMenu->drinks, myMenu->drinksPrice, &myMenu->drinkNr);
+}
+
 void loadDataToMenu(menu *myMenu)
 {
     FILE * menuFile;
     menuFile = fopen ("data.txt","r");
+    if(menuFile==NULL) menuFile=stdin;
+    if(menuFile==stdin) printf("%s\n", LOAD_DATA);
     allocateMemoryForStrings(myMenu);
-    if(menuFile!=NULL) printf("file exists\n");
-    printf("%s\n>", LOAD_DATA);
-    fscanf(menuFile, "%d", &myMenu->foodTypeNr);
-    printf("foodTypeNr=%d\n", myMenu->foodTypeNr);
-    char* c, endl;
-    while((endl=fgetc(menuFile))!='\n' && endl!=EOF);
-    char thisFoodTypeData[MAX_LINE_LENGTH];
-    char* ptr;
-    //read food
-    for(int i=0; i<myMenu->foodTypeNr; i++)
-    {
-        printf(">");
-        fgets(thisFoodTypeData, MAX_LINE_LENGTH, menuFile);
-        c=strtok(thisFoodTypeData, ":");
-        strcpy(myMenu->foodTypes[i], c);
-        c = strtok(NULL, "(");
-        myMenu->specFoodNr[i]=0;
-        while ((c=strtok(NULL, "-"))!= NULL)
-        {
-            printf("read new food %s\n", c);
-            printf("size of destination = %d", sizeof(myMenu->specFoods[i][myMenu->specFoodNr[i]]));
-            strcpy(myMenu->specFoods[i][myMenu->specFoodNr[i]], c);
-            printf("the new food is %s\n", myMenu->specFoods[i][myMenu->specFoodNr[i]]);
-            printf("c is %s\n", c);
-            c = strtok(NULL, " )");
-            printf("read new price %s\n", c);
-            myMenu->specFoodsPrice[i][myMenu->specFoodNr[i]] = strtod(c, &ptr);
-            printf("new price is  %.2lf\n", myMenu->specFoodsPrice[i][myMenu->specFoodNr[i]]);
-            c=strtok(NULL, "(");
-            (myMenu->specFoodNr[i])++;
-            printf("nr of specfoods %d\n", myMenu->specFoodNr[i]);
-        }
-    }
-
-    //read drinks
-    printf(">");
-    fscanf(menuFile, "%d", &myMenu->drinkNr);
-    while((endl=fgetc(menuFile))!='\n' && endl!=EOF);
-    char drinksData[MAX_LINE_LENGTH];
-    printf(">");
-    fgets(drinksData, MAX_LINE_LENGTH, menuFile);
-    printf("read in drinks:/%s/\n", drinksData);
-    c=strtok(drinksData, "(),");
-    int drinkIndex=0;
-    while(c!=NULL)
-    {
-        processingNameAndPrice(myMenu->drinks[drinkIndex], &myMenu->drinksPrice[drinkIndex], c);
-        printf("the new drink is %s\n", myMenu->drinks[drinkIndex]);
-        drinkIndex++;
-        c=strtok(NULL, "()");
-        printf("the drink c is%s\n", c);
-    }
+    readFoodData(menuFile, myMenu);
+    readDrinkData(menuFile, myMenu);
 }
 
