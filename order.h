@@ -6,6 +6,7 @@
 #define FOODORDERING_ORDER_H
 
 #include <stdbool.h>
+#include "menu.h"
 
 struct order
 {
@@ -18,14 +19,14 @@ struct order
 
 };
 
-void displayFoodTypeOptions(struct order myOrder, struct menu myMenu);
-void hasChosenFoodType(struct order *myOrder, struct menu myMenu, int *step);
-void displaySpecFoodOptions(struct order myOrder, struct menu myMenu);
-void hasChosenSpecFood(struct order *myOrder, struct menu myMenu, int *step);
-void displayDrinkOptions(struct order myOrder, struct menu myMenu);
-void hasSelectedDrink(struct order *myOrder, struct menu myMenu, int *step);
+void displayFoodTypeOptions(struct order myOrder, menu myMenu);
+void chooseFoodType(struct order *myOrder,  menu myMenu, int *step);
+void displaySpecFoodOptions(struct order myOrder,menu myMenu);
+void chooseSpecFood(struct order *myOrder, menu myMenu, int *step);
+void displayDrinkOptions(struct order myOrder, menu myMenu);
+void chooseDrink(struct order *myOrder, menu myMenu, int *step);
 void displayCutleryOptions();
-void hasDecidedAboutCutlery(struct order *myOrder, struct menu myMenu, int *step);
+void decideCutlery(struct order *myOrder, menu myMenu, int *step);
 void getAdditionalInfo(struct order *myOrder, int* step);
 
 #endif //FOODORDERING_ORDER_H
