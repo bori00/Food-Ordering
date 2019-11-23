@@ -28,13 +28,15 @@ void displayUserData(struct user myUser)
 void displayOrderDetails(struct user myUser, menu myMenu)
 {
     printf("Food items:\n");
-    printf("---%s\n", myMenu.specFoods[myUser.hisOrder.foodType][myUser.hisOrder.specFood]);
-    printf("---%s\n", myMenu.drinks[myUser.hisOrder.drink]);
+    printf("---%s %.2lf\n", myMenu.specFoods[myUser.hisOrder.foodType][myUser.hisOrder.specFood], myMenu.specFoodsPrice[myUser.hisOrder.foodType][myUser.hisOrder.specFood]);
+    if(myUser.hisOrder.drink>=0)  printf("---%s %.2lf\n", myMenu.drinks[myUser.hisOrder.drink], myMenu.drinksPrice[myUser.hisOrder.drink]);
     printf("Cutlery: ");
     if(myUser.hisOrder.cutlery) printf("yes\n");
     else printf("No\n");
     if(myUser.hisOrder.existsAdditionalInfo) printf("Additional info: %s\n", myUser.hisOrder.additionalInfo);
-    printf("Payment amount: %lf\n", myMenu.specFoodsPrice[myUser.hisOrder.foodType][myUser.hisOrder.specFood]+myMenu.drinksPrice[myUser.hisOrder.drink]);
+    double price = myMenu.specFoodsPrice[myUser.hisOrder.foodType][myUser.hisOrder.specFood];
+    if(myUser.hisOrder.drink>=0) price+=myMenu.drinksPrice[myUser.hisOrder.drink];
+    printf("Payment amount: %.2lf\n", price);
 }
 
 void  signOrder(struct user myUser, menu myMenu, int* state)

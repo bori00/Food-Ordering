@@ -6,13 +6,13 @@
 #define MAX_STATE 8
 
 int main() {
-    printf("Welcome to our restaurant! \n");
 
     int state = 1;
     struct user thisUser;
     menu thisMenu;
     loadDataToMenu(&thisMenu);
 
+    printf("Welcome to our restaurant! \n");
     while(state<MAX_STATE)
     {
         switch(state)
@@ -33,8 +33,8 @@ int main() {
             case 7: signOrder(thisUser, thisMenu, &state);
                     break;
         }
-
     }
+    freeMemoryForStrings(&thisMenu);
     printf("Contract signed! Enjoy your meal!\n");
     return 0;
 }

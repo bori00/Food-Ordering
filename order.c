@@ -59,17 +59,22 @@ void displayDrinkOptions(struct order myOrder,  menu myMenu)
         putchar('a' + i);
         printf(") %s %.2lf\n", myMenu.drinks[i], myMenu.drinksPrice[i]);
     }
-    printf("%c) go back\n", (char)'a'+myMenu.drinkNr);
+    printf("%c) nothing 0.00\n", 'a'+myMenu.drinkNr);
+    printf("%c) go back\n", (char)'a'+myMenu.drinkNr+1);
 }
 
 void chooseDrink(struct order *myOrder,  menu myMenu, int* step)
 {
     displayDrinkOptions(*myOrder, myMenu);
-    int choiceIndex = getChoiceIndex(myMenu.drinkNr+1);
-    goToNextState(step, myMenu.drinkNr, choiceIndex, 1);
+    int choiceIndex = getChoiceIndex(myMenu.drinkNr+2);
+    goToNextState(step, myMenu.drinkNr+1, choiceIndex, 1);
     if(choiceIndex<myMenu.drinkNr) //case has chosen a foodType
     {
         myOrder->drink=choiceIndex;
+    }
+    else if (choiceIndex==myMenu.drinkNr)
+    {
+        myOrder->drink=-1;
     }
 }
 

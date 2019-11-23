@@ -12,7 +12,7 @@ struct order
 {
     int foodType; //0=pizza, 1=pasta, 2-salad
     int specFood; //whick kind of pizza/pasta/salad?
-    int drink; //0-cola, 1-fanta, 2-lipton, 3-water, 4-nothing
+    int drink; //-1 = nothing
     bool cutlery;
     bool existsAdditionalInfo;
     char additionalInfo[100];

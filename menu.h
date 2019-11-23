@@ -25,6 +25,8 @@ typedef struct menus
 
 void allocateMemoryForStrings(menu *myMenu);
 void loadDataToMenu(menu *myMenu);
-void fillMenuWithMyData(menu *myMenu);
+void saveFoodsDataToFile(char* fileName, menu* myMenu);
+void saveDrinksDataToFile(char* fileName, menu* myMenu);
+void freeMemoryForStrings(menu* myMenu);
 
 #endif //FOODORDERING_MENU_H
