@@ -15,6 +15,7 @@ struct user
     struct order hisOrder;
 };
 
+void userSignInOrUp(struct user *myUser);
 void userLogin(struct user *myUser);
 void displayUserData(struct user myUser);
 void displayOrderDetails(struct user myUser,  menu myMenu);

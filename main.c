@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "menu.h"
 #include "user.h"
-
+#include "usersData.h"
 
 #define MAX_STATE 8
 
@@ -11,6 +11,9 @@ int main() {
     struct user thisUser;
     menu thisMenu;
     loadDataToMenu(&thisMenu);
+    users existingUsers;
+    initialiseUsersData(&existingUsers);
+
 
     printf("Welcome to our restaurant! \n");
     while(state<MAX_STATE)

@@ -7,6 +7,19 @@
 #include "menu.h"
 #include "choice.h"
 
+#define SIGN_IN_UP "Do you want to sign in or sign up?"
+#define  SIGN_IN "sign in"
+#define  SIGN_UP "sign up"
+
+void userSignInOrUp(struct user * myUser)
+{
+    printf("%s\na) %s\nb) %s\n", SIGN_IN_UP, SIGN_IN, SIGN_UP);
+    int choice = getChoiceIndex(2);
+    //todo: write these two functions
+    /*if(choice==0) userSignIn(myUser);
+    else userSignUp(myUser);*/
+}
+
 void userLogin(struct user *myUser)
 {
     char c;

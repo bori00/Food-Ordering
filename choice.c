@@ -20,7 +20,7 @@ int getChoiceIndex(int nrOfChoices)
         printf("Please choose any of the possible options!\n");
         choice = getch();
         while ((c = getchar()) != '\n' && c != EOF) { }
-    }while(!correctAnswer(choice, 'a', (char)('a'+nrOfChoices)));
+    }while(!correctAnswer(choice, 'a', (char)('a'+nrOfChoices-1)));
     return choice-'a';
 }
 
