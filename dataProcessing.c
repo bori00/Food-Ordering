@@ -3,8 +3,11 @@
 //
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include "menu.h"
+
+#define MAX_LINE_LENGTH 200
 
 void eraseSpacesFromEnd(char s[])
 {
@@ -24,7 +27,9 @@ void processingNameAndPrice(char* name, double* price, char* s)
 void splitIntoParts(char line[], char* names[], double prices[], int *nr)
 {
     char* c;
-    c = strtok(line, "(");
+    char line2[MAX_LINE_LENGTH]=" "; //to make the string uniform, I append a ' ' to it at the beginning, and then I extract all the spaces with the strtok
+    strcat(line2, line);
+    c = strtok(line2, "(");
     int index=0;
     while ((c=strtok(NULL, ")"))!= NULL)
     {

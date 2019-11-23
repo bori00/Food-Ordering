@@ -95,7 +95,8 @@ void saveDrinksDataToFile(char* fileName, menu* myMenu)
     fprintf(menuFile, "%d:\n", myMenu->drinkNr);
     for(int i=0; i<myMenu->drinkNr; i++)
     {
-        fprintf(menuFile, "(%s - %.2lf), ", myMenu->drinks[i], myMenu->drinksPrice[i]);
+        fprintf(menuFile, "(%s - %.2lf)", myMenu->drinks[i], myMenu->drinksPrice[i]);
+        if(i+1<myMenu->drinkNr) fprintf(menuFile, ", ");
     }
     fprintf(menuFile, "\n");
 }
