@@ -16,8 +16,15 @@ void userSignInOrUp(struct user * myUser)
     printf("%s\na) %s\nb) %s\n", SIGN_IN_UP, SIGN_IN, SIGN_UP);
     int choice = getChoiceIndex(2);
     //todo: write these two functions
+    users allUsers;
+    initialiseUsersData(&allUsers);
     /*if(choice==0) userSignIn(myUser);
     else userSignUp(myUser);*/
+}
+
+void userSignIn(struct user* myUser, users* allUsers)
+{
+
 }
 
 void userLogin(struct user *myUser)

@@ -11,8 +11,6 @@ int main() {
     struct user thisUser;
     menu thisMenu;
     loadDataToMenu(&thisMenu);
-    users existingUsers;
-    initialiseUsersData(&existingUsers);
 
 
     printf("Welcome to our restaurant! \n");
