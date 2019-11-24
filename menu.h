@@ -10,7 +10,6 @@
 #define MAX_SPECFOOD_NR 10
 #define MAX_DRINKS_NR 10
 
-
 typedef struct menus
 {
     int foodTypeNr; //how many types of food

@@ -27,7 +27,7 @@ void readUsersDataFromFile(usersData* allUsers)
     usersFile = fopen("usersData.txt", "r+");
 
     allocateMemoryForUsersData(allUsers);
-    int endOfFileReached=0, index=0;
+    int index=0;
     while(fscanf(usersFile, "%s", allUsers->users[index].name)!=EOF)
     {
         fscanf(usersFile, "%s", allUsers->users[index].password);
@@ -80,7 +80,6 @@ void userSignInOrUp(struct user * myUser)
     else userSignUp(myUser, &allUsers);
 }
 
-
 void userSignIn(struct user* myUser, usersData* allUsers){
     printf("%s\n", SIGNING_IN);
     getUserData(myUser);
@@ -104,14 +103,12 @@ void userSignUp(struct user* myUser, usersData* allUsers){
     if(userIndex!=-1){
         printf("%s\n", DUPLICATE_USER);
         userSignUp(myUser, allUsers);
-    }
-    else{
+    } else {
         int errorCode = getPasswordErrorCode(myUser->password, myUser->name);
         if(errorCode==-1){
             saveNewUserDataToFile(myUser);
             freeMemoryForUsersData(allUsers);
-        }
-        else{
+        } else {
             printErrorMessage(errorCode);
             userSignUp(myUser, allUsers);
         }
