@@ -110,10 +110,11 @@ void loadDataToMenu(menu *myMenu)
     allocateMemoryForStrings(myMenu);
     readFoodData(menuFile, myMenu);
     readDrinkData(menuFile, myMenu);
-    if(menuFile==stdin)
-    {
+    if(menuFile==stdin){
         saveFoodsDataToFile("data.txt", myMenu);
         saveDrinksDataToFile("data.txt", myMenu);
+        menuFile = fopen ("data.txt","r");
     }
+    fclose(menuFile);
 }
 
