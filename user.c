@@ -3,41 +3,32 @@
 //
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "user.h"
 #include "menu.h"
 #include "choice.h"
 
-#define SIGN_IN_UP "Do you want to sign in or sign up?"
-#define  SIGN_IN "sign in"
-#define  SIGN_UP "sign up"
-
-void userSignInOrUp(struct user * myUser)
+void allocateMemoryForUser(struct user* myUser)
 {
-    printf("%s\na) %s\nb) %s\n", SIGN_IN_UP, SIGN_IN, SIGN_UP);
-    int choice = getChoiceIndex(2);
-    //todo: write these two functions
-    users allUsers;
-    initialiseUsersData(&allUsers);
-    /*if(choice==0) userSignIn(myUser);
-    else userSignUp(myUser);*/
+    myUser->name = (char*) malloc(MAX_LENGTH_USERNAME* sizeof(char));
+    myUser->password = (char*) malloc(MAX_LENGTH_PASSWORD* sizeof(char));
 }
 
-void userSignIn(struct user* myUser, users* allUsers)
+void freeMemoryForUser(struct user* myUser)
 {
-
+    free(myUser->name);
+    free(myUser->password);
 }
 
-void userLogin(struct user *myUser)
+void getUserData(struct user* myUser)
 {
-    char c;
-    printf("Please sign in to continue\n");
     printf("---Username\n");
     scanf("%s", myUser->name);
-    while((c=getchar()!='\n' && c!=EOF));
     printf("---Password\n");
     scanf("%s", myUser->password);
-    while((c=getchar()!='\n' && c!=EOF));
-    printf("Thank you!\n");
+    char c;
+    while ((c = getchar()) != '\n' && c != EOF);
 }
 
 void displayUserData(struct user myUser)
@@ -69,5 +60,13 @@ void  signOrder(struct user myUser, menu myMenu, int* state)
     printf("b) go back\n");
     int choiceIndex = getChoiceIndex(2);
    goToNextState(state, 1, choiceIndex, 2);
+}
+
+void saveNewUserDataToFile(struct user* myUser)
+{
+    FILE *usersFile;
+    usersFile =fopen("usersData.txt", "a");
+    fprintf(usersFile, "%s %s\n", myUser->name, myUser->password);
+    fflush(usersFile);
 }
 

@@ -9,6 +9,7 @@ int main() {
 
     int state = 1;
     struct user thisUser;
+    allocateMemoryForUser(&thisUser);
     menu thisMenu;
     loadDataToMenu(&thisMenu);
 
@@ -18,7 +19,7 @@ int main() {
     {
         switch(state)
         {
-            case 1: userLogin(&thisUser);
+            case 1: userSignInOrUp(&thisUser);
                 state++;
                 break;
             case 2: chooseFoodType(&thisUser.hisOrder, thisMenu, &state);
@@ -36,6 +37,7 @@ int main() {
         }
     }
     freeMemoryForStrings(&thisMenu);
+    freeMemoryForUser(&thisUser);
     printf("Contract signed! Enjoy your meal!\n");
     return 0;
 }

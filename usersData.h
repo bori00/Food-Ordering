@@ -6,20 +6,24 @@
 #define FOODORDERING_USERSDATA_H
 
 #define MAX_NO_USERS 100
-#define MAX_LENGTH_USERNAME 20
-#define MAX_LENGTH_PASSWORD 20
-#define MIN_LENGTH_PASSWORD 7
 
-typedef struct users
+#include <stdbool.h>
+#include "user.h"
+
+typedef struct usersData
 {
     int nrUsers;
-    char** userNames;
-    char** passwords;
+    struct user users[MAX_NO_USERS];
 
-}users;
+}usersData;
 
-void initialiseUsersData(users* allUsers);
-void allocateMemory(users *allUsers);
-void readUsersDataFromFile(users* allUsers);
+void readUsersDataFromFile(usersData* allUsers);
+void allocateMemoryForUsersData(usersData* allUsers);
+void freeMemoryForUsersData(usersData* allUsers);
+int findUserName(usersData* allUsers, char name[]);
+bool correctPasswordForThisUser(usersData* allUsers, char password[], int index);
+void userSignInOrUp(struct user * myUser);
+void userSignIn(struct user* myUser, usersData* allUsers);
+void userSignUp(struct user* myUser, usersData* allUsers);
 
 #endif //FOODORDERING_USERSDATA_H

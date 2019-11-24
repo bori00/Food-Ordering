@@ -5,21 +5,27 @@
 #ifndef FOODORDERING_USER_H
 #define FOODORDERING_USER_H
 
+#include <stdbool.h>
 #include "order.h"
 #include "menu.h"
-#include "usersData.h"
+
+
+#define MAX_LENGTH_USERNAME 20
+#define MAX_LENGTH_PASSWORD 20
 
 struct user
 {
-    char name[25];
-    char password[25];
+    char* name;
+    char* password;
     struct order hisOrder;
 };
 
-void userSignInOrUp(struct user *myUser);
-void userLogin(struct user *myUser);
+void allocateMemoryForUser(struct user* myUser);
+void freeMemoryForUser(struct user* myUser);
 void displayUserData(struct user myUser);
 void displayOrderDetails(struct user myUser,  menu myMenu);
 void signOrder(struct user myUser,menu myMenu, int*state);
+void getUserData(struct user* myUser);
+void saveNewUserDataToFile(struct user* myUser);
 
 #endif //FOODORDERING_USER_H

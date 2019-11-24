@@ -3,9 +3,7 @@
 //
 
 #include <stdlib.h>
-#include <stdio.h>
 #include <string.h>
-#include "menu.h"
 
 #define MAX_LINE_LENGTH 200
 
