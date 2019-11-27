@@ -25,7 +25,6 @@ void readUsersDataFromFile(usersData* allUsers)
 {
     FILE * usersFile;
     usersFile = fopen("usersData.txt", "r+");
-
     allocateMemoryForUsersData(allUsers);
     int index=0;
     while(fscanf(usersFile, "%s", allUsers->users[index].name)!=EOF)
@@ -34,14 +33,14 @@ void readUsersDataFromFile(usersData* allUsers)
         index++;
     }
     allUsers->nrUsers=index;
+    fclose(usersFile);
 }
 
 void allocateMemoryForUsersData(usersData* allUsers)
 {
     for(int i=0; i<MAX_NO_USERS; i++)
     {
-        allUsers->users[i].name = (char*) malloc(MAX_LENGTH_USERNAME* sizeof(char));
-        allUsers->users[i].password = (char*) malloc(MAX_LENGTH_PASSWORD* sizeof(char));
+        allocateMemoryForUser(&allUsers->users[i]);
     }
 }
 
@@ -49,8 +48,7 @@ void freeMemoryForUsersData(usersData* allUsers)
 {
     for(int i=0; i<MAX_NO_USERS; i++)
     {
-        free(allUsers->users[i].name);
-        free(allUsers->users[i].password);
+        freeMemoryForUser(&allUsers->users[i]);
     }
 }
 
@@ -99,7 +97,7 @@ void userSignIn(struct user* myUser, usersData* allUsers){
 void userSignUp(struct user* myUser, usersData* allUsers){
     printf("%s\n", SIGNING_UP);
     getUserData(myUser);
-    int userIndex=findUserName(allUsers, myUser->name); //-1 --> he doesn't exist
+    int userIndex=findUserName(allUsers, myUser->name); //-1 --> the user doesn't exist
     if(userIndex!=-1){
         printf("%s\n", DUPLICATE_USER);
         userSignUp(myUser, allUsers);

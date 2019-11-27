@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include "dataProcessing.h"
 
-
 #define LOAD_DATA "Please load the data"
 #define MAX_LINE_LENGTH 200
 
@@ -73,7 +72,7 @@ void readFoodData(FILE* menuFile, menu* myMenu)
     if(menuFile==stdin) printf(">");
     fscanf(menuFile, "%d", &myMenu->foodTypeNr);
     allocateMemoryFodFoods(myMenu);
-    char* c, endl,  thisFoodTypeData[MAX_LINE_LENGTH];
+    char endl,  thisFoodTypeData[MAX_LINE_LENGTH];
     while((endl=fgetc(menuFile))!='\n' && endl!=EOF);
     for(int i=0; i<myMenu->foodTypeNr; i++) {
         if(menuFile==stdin) printf(">");
@@ -90,9 +89,8 @@ void readDrinkData(FILE* menuFile, menu* myMenu)
     fscanf(menuFile, "%d", &myMenu->drinkNr);
     allocateMemoryForDrinks(myMenu);
     if(menuFile==stdin) printf(">");
-    char* c, endl,  thisFoodTypeData[MAX_LINE_LENGTH];
+    char endl, drinksData[MAX_LINE_LENGTH];
     while((endl=fgetc(menuFile))!='\n' && endl!=EOF);
-    char drinksData[MAX_LINE_LENGTH];
     fgets(drinksData, MAX_LINE_LENGTH, menuFile);
     splitIntoParts(drinksData, myMenu->drinks, myMenu->drinksPrice, &myMenu->drinkNr);
 }

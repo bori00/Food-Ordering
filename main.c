@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "menu.h"
 #include "user.h"
 #include "usersData.h"
