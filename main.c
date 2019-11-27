@@ -36,7 +36,7 @@ int main() {
                     break;
         }
     }
-    freeMemoryForStrings(&thisMenu);
+    freeMemoryOfMenu(&thisMenu);
     freeMemoryForUser(&thisUser);
     printf("Contract signed! Enjoy your meal!\n");
     return 0;
