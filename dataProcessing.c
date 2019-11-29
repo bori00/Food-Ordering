@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_LINE_LENGTH 200
+#define MAX_LINE_LENGTH 1000
 
 void eraseSpacesFromEnd(char s[])
 {

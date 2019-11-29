@@ -5,8 +5,8 @@
 #ifndef FOODORDERING_MENU_H
 #define FOODORDERING_MENU_H
 
-#define MAX_STRING_LENGTH  30
-#define MAX_SPECFOOD_NR 10
+#define MAX_STRING_LENGTH  50
+//#define MAX_SPECFOOD_NR 10
 
 typedef struct menus
 {
@@ -20,7 +20,7 @@ typedef struct menus
     double* drinksPrice;
 }menu;
 
-void allocateMemoryFodFoods(menu *myMenu);
+void allocateMemoryFodFoodTypes(menu *myMenu);
 void allocateMemoryForDrinks(menu* myMenu);
 void loadDataToMenu(menu *myMenu);
 void saveFoodsDataToFile(char* fileName, menu* myMenu);

@@ -2,12 +2,10 @@
 // Created by Bori on 11/24/2019.
 //
 
-#include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include "usersData.h"
 #include "choice.h"
-#include "password.h"
 #include "password.c"
 
 #define SIGN_IN_UP "Do you want to sign in or sign up?"
