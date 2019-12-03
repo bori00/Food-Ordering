@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include "usersData.h"
 #include "choice.h"
-#include "password.c"
+#include "password.h"
 
 #define SIGN_IN_UP "Do you want to sign in or sign up?"
 #define SIGN_IN "sign in"

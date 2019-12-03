@@ -2,6 +2,9 @@
 // Created by Bori on 11/24/2019.
 //
 
+#include "password.h"
+#include <string.h>
+#include <stdio.h>
 
 int getPasswordErrorCode(char password[], char username[]) //return -1 if no error found
 {
