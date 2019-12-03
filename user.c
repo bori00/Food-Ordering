@@ -8,6 +8,7 @@
 #include "user.h"
 #include "menu.h"
 #include "choice.h"
+#include "crypt.h"
 
 void allocateMemoryForUser(struct user* myUser)
 {
@@ -62,12 +63,13 @@ void  signOrder(struct user myUser, menu myMenu, int* state)
    goToNextState(state, 1, choiceIndex, 2);
 }
 
-void saveNewUserDataToFile(struct user* myUser)
+void saveNewUserDataToFile(struct user* myUser, char* key)
 {
     FILE *usersFile;
     usersFile =fopen("usersData.txt", "a");
-    fprintf(usersFile, "%s %s\n", myUser->name, myUser->password);
+    fprintf(usersFile, "%s %s\n", myUser->name, encryptPassword(myUser->password, key));
     fflush(usersFile);
     fclose(usersFile);
+    //todo print on the first empty line
 }
 

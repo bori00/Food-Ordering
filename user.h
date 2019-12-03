@@ -26,6 +26,6 @@ void displayUserData(struct user myUser);
 void displayOrderDetails(struct user myUser,  menu myMenu);
 void signOrder(struct user myUser,menu myMenu, int*state);
 void getUserData(struct user* myUser);
-void saveNewUserDataToFile(struct user* myUser);
+void saveNewUserDataToFile(struct user* myUser, char* key);
 
 #endif //FOODORDERING_USER_H

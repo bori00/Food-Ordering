@@ -4,9 +4,11 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "usersData.h"
 #include "choice.h"
 #include "password.h"
+#include "crypt.h"
 
 #define SIGN_IN_UP "Do you want to sign in or sign up?"
 #define SIGN_IN "sign in"
@@ -16,23 +18,31 @@
 #define USER_NOT_FOUND	"Username doesn't exist"
 #define DUPLICATE_USER	"Please choose another username!"
 #define INCORRECT_PASSWORD	"Incorrect password"
-#define MAX_KEY_LENGTH 1000
+
 
 
 void readUsersDataFromFile(usersData* allUsers)
 {
+    //todo factorize
+    //todo add admin
     FILE * usersFile;
-    usersFile = fopen("usersData.txt", "r+");
+    usersFile = fopen("usersData.txt", "r");
     allocateMemoryForUsersData(allUsers);
-    int index=0;
-    int encryptionKey;
-    fscanf(usersFile, "%d", &encryptionKey);
+    fscanf(usersFile, "%s", allUsers->crytptKey);
     fscanf(usersFile, "%d", &allUsers->nrUsers);
+    char* encryptedPassword = (char*) malloc(sizeof(char)*MAX_LENGTH_PASSWORD);
+    char* decryptedPassword;
     for(int i=0; i<allUsers->nrUsers; i++)
     {
         fscanf(usersFile, "%s", allUsers->users[i].name);
-        fscanf(usersFile, "%s", allUsers->users[i].password);
+        fscanf(usersFile, "%s", encryptedPassword);
+        decryptedPassword = decryptPassword(encryptedPassword, allUsers->crytptKey);
+        strcpy(allUsers->users[i].password, decryptedPassword);
+        //todo delete print
+        printf("the password %d is %s", i, allUsers->users[i].password);
+        free(decryptedPassword);
     }
+    free(encryptedPassword);
     fclose(usersFile);
 }
 
@@ -42,6 +52,7 @@ void allocateMemoryForUsersData(usersData* allUsers)
     {
         allocateMemoryForUser(&allUsers->users[i]);
     }
+    allUsers->crytptKey= (char*) malloc(sizeof(char)*MAX_KEY_LENGTH);
 }
 
 void freeMemoryForUsersData(usersData* allUsers)
@@ -50,6 +61,7 @@ void freeMemoryForUsersData(usersData* allUsers)
     {
         freeMemoryForUser(&allUsers->users[i]);
     }
+    free(allUsers->crytptKey);
 }
 
 int findUserName(usersData* allUsers, char name[])
@@ -128,7 +140,7 @@ void userSignUp(struct user* myUser, usersData* allUsers){
         int errorCode = getPasswordErrorCode(myUser->password, myUser->name);
         if(errorCode==-1){
             saveNewUserDataToVector(allUsers, myUser);
-            saveNewUserDataToFile(myUser);
+            saveNewUserDataToFile(myUser, allUsers->crytptKey);
             setNewUsersNrInFile(*allUsers);
         } else {
             printErrorMessage(errorCode);
