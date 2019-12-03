@@ -68,5 +68,6 @@ void saveNewUserDataToFile(struct user* myUser)
     usersFile =fopen("usersData.txt", "a");
     fprintf(usersFile, "%s %s\n", myUser->name, myUser->password);
     fflush(usersFile);
+    fclose(usersFile);
 }
 

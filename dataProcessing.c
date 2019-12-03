@@ -4,6 +4,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include "dataProcessing.h"
 
 #define MAX_LINE_LENGTH 1000
 

@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <conio.h>
+#include "choice.h"
 
 bool correctAnswer(char choice, char min, char max)
 {

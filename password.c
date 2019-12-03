@@ -2,8 +2,11 @@
 // Created by Bori on 11/24/2019.
 //
 
+#include <stdio.h>
+#include "password.h"
+#include "string.h"
 
-int getPasswordErrorCode(char password[], char username[]) //return -1 if no error found
+int getPasswordErrorCode(char* password, char* username)//return -1 if no error found
 {
     if(!validPasswordLength(password)) return 0;
     if(!doesntContainUsername(password, username)) return 1;

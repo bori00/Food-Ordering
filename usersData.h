@@ -5,10 +5,11 @@
 #ifndef FOODORDERING_USERSDATA_H
 #define FOODORDERING_USERSDATA_H
 
-#define MAX_NO_USERS 100
+#define MAX_NO_USERS 1000
 
 #include <stdbool.h>
 #include "user.h"
+
 
 typedef struct usersData
 {
@@ -22,7 +23,8 @@ void allocateMemoryForUsersData(usersData* allUsers);
 void freeMemoryForUsersData(usersData* allUsers);
 int findUserName(usersData* allUsers, char name[]);
 bool correctPasswordForThisUser(usersData* allUsers, char password[], int index);
-void userSignInOrUp(struct user * myUser);
+void saveNewUserDataToVector(usersData* allUsers, struct user* myUser);
+void userSignInOrUp(struct user * myUser, usersData *allUsers);
 void userSignIn(struct user* myUser, usersData* allUsers);
 void userSignUp(struct user* myUser, usersData* allUsers);
 

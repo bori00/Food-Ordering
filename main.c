@@ -13,6 +13,8 @@ int main() {
     allocateMemoryForUser(&thisUser);
     menu thisMenu;
     loadDataToMenu(&thisMenu);
+    usersData allUsers;
+    readUsersDataFromFile(&allUsers);
 
 
     printf("Welcome to our restaurant! \n");
@@ -20,7 +22,7 @@ int main() {
     {
         switch(state)
         {
-            case 1: userSignInOrUp(&thisUser);
+            case 1: userSignInOrUp(&thisUser, &allUsers);
                 state++;
                 break;
             case 2: chooseFoodType(&thisUser.hisOrder, thisMenu, &state);
@@ -39,6 +41,7 @@ int main() {
     }
     freeMemoryOfMenu(&thisMenu);
     freeMemoryForUser(&thisUser);
+    freeMemoryForUsersData(&allUsers);
     printf("Contract signed! Enjoy your meal!\n");
     return 0;
 }

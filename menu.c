@@ -4,8 +4,8 @@
 
 #include <string.h>
 #include <stdlib.h>
-#include "menu.h"
 #include <stdio.h>
+#include "menu.h"
 #include "dataProcessing.h"
 
 #define LOAD_DATA "Please load the data"
@@ -96,8 +96,7 @@ void readDrinkData(FILE* menuFile, menu* myMenu)
     allocateMemoryForDrinks(myMenu);
     if(menuFile==stdin) printf(">");
     char endl, drinksData[MAX_LINE_LENGTH];
-    while((endl=
-            fgetc(menuFile))!='\n' && endl!=EOF);
+    while((endl=fgetc(menuFile))!='\n' && endl!=EOF);
     fgets(drinksData, MAX_LINE_LENGTH, menuFile);
     splitIntoParts(drinksData, myMenu->drinks, myMenu->drinksPrice, &myMenu->drinkNr);
 }

@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include "usersData.h"
 #include "choice.h"
-#include "password.c"
+#include "password.h"
 
 #define SIGN_IN_UP "Do you want to sign in or sign up?"
 #define SIGN_IN "sign in"
@@ -16,7 +16,7 @@
 #define USER_NOT_FOUND	"Username doesn't exist"
 #define DUPLICATE_USER	"Please choose another username!"
 #define INCORRECT_PASSWORD	"Incorrect password"
-
+#define MAX_KEY_LENGTH 1000
 
 
 void readUsersDataFromFile(usersData* allUsers)
@@ -25,12 +25,14 @@ void readUsersDataFromFile(usersData* allUsers)
     usersFile = fopen("usersData.txt", "r+");
     allocateMemoryForUsersData(allUsers);
     int index=0;
-    while(fscanf(usersFile, "%s", allUsers->users[index].name)!=EOF)
+    int encryptionKey;
+    fscanf(usersFile, "%d", &encryptionKey);
+    fscanf(usersFile, "%d", &allUsers->nrUsers);
+    for(int i=0; i<allUsers->nrUsers; i++)
     {
-        fscanf(usersFile, "%s", allUsers->users[index].password);
-        index++;
+        fscanf(usersFile, "%s", allUsers->users[i].name);
+        fscanf(usersFile, "%s", allUsers->users[i].password);
     }
-    allUsers->nrUsers=index;
     fclose(usersFile);
 }
 
@@ -62,18 +64,41 @@ int findUserName(usersData* allUsers, char name[])
 
 bool correctPasswordForThisUser(usersData* allUsers, char password[], int index)
 {
-    if(strcmp(allUsers->users[index].password, password)==0) return true;
+    if(strlen(password)==strlen(allUsers->users[index].password) && strcmp(allUsers->users[index].password, password)==0)
+    {
+        return true;
+    }
     return false;
 }
 
-void userSignInOrUp(struct user * myUser)
+void saveNewUserDataToVector(usersData* allUsers, struct user* myUser)
 {
+    (allUsers->nrUsers)++;
+   //note: memory is already allocated
+    strcpy(allUsers->users[allUsers->nrUsers-1].name, myUser->name);
+    strcpy(allUsers->users[allUsers->nrUsers-1].password, myUser->password);
+}
+
+void setNewUsersNrInFile(usersData allUsers)
+{
+    FILE * usersFile;
+    usersFile = fopen("usersData.txt", "r+");
+    char s[MAX_KEY_LENGTH]; //to read the
+    fgets(s, MAX_KEY_LENGTH, usersFile);
+    char c;
+    fpos_t position;
+    fgetpos(usersFile, &position);
+    fsetpos(usersFile, &position);
+    fprintf(usersFile, "%10d", allUsers.nrUsers);
+    fflush(usersFile);
+    fclose(usersFile);
+}
+
+void userSignInOrUp(struct user * myUser, usersData *allUsers) {
     printf("%s\na) %s\nb) %s\n", SIGN_IN_UP, SIGN_IN, SIGN_UP);
     int choice = getChoiceIndex(2);
-    usersData allUsers;
-    readUsersDataFromFile(&allUsers);
-    if(choice==0) userSignIn(myUser, &allUsers);
-    else userSignUp(myUser, &allUsers);
+    if (choice == 0) userSignIn(myUser, allUsers);
+    else userSignUp(myUser, allUsers);
 }
 
 void userSignIn(struct user* myUser, usersData* allUsers){
@@ -82,7 +107,7 @@ void userSignIn(struct user* myUser, usersData* allUsers){
     int userIndex=findUserName(allUsers, myUser->name); //-1 --> he doesn't exist
     if(userIndex==-1){
         printf("%s\n", USER_NOT_FOUND);
-        userSignInOrUp(myUser);
+        userSignInOrUp(myUser, allUsers);
     }
     else{
         if(!correctPasswordForThisUser(allUsers, myUser->password, userIndex)){
@@ -102,8 +127,9 @@ void userSignUp(struct user* myUser, usersData* allUsers){
     } else {
         int errorCode = getPasswordErrorCode(myUser->password, myUser->name);
         if(errorCode==-1){
+            saveNewUserDataToVector(allUsers, myUser);
             saveNewUserDataToFile(myUser);
-            freeMemoryForUsersData(allUsers);
+            setNewUsersNrInFile(*allUsers);
         } else {
             printErrorMessage(errorCode);
             userSignUp(myUser, allUsers);
