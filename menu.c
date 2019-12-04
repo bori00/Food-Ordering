@@ -103,6 +103,7 @@ void readDrinkData(FILE* menuFile, menu* myMenu)
 
 void saveFoodsDataToFile(char* fileName, menu* myMenu)
 {
+    //todo print foods nr
     FILE * menuFile;
     menuFile = fopen (fileName,"w");
     fprintf(menuFile, "%d:\n", myMenu->foodTypeNr);
