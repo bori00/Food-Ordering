@@ -109,7 +109,7 @@ void saveFoodsDataToFile(char* fileName, menu* myMenu)
     fprintf(menuFile, "%d:\n", myMenu->foodTypeNr);
     for(int i=0; i<myMenu->foodTypeNr; i++)
     {
-        fprintf(menuFile, "%s: ", myMenu->foodTypes[i]);
+        fprintf(menuFile, "%s %d: ", myMenu->foodTypes[i], myMenu->specFoodNr[i]);
         for(int j=0; j<myMenu->specFoodNr[i]; j++)
         {
             fprintf(menuFile, "(%s - %.2lf) ", myMenu->specFoods[i][j], myMenu->specFoodsPrice[i][j]);
