@@ -7,7 +7,12 @@
 #include <string.h>
 #include "crypt.h"
 
-//I generate characters in th einterval [33, 126], the interval of the so-called "printable characters"
+//the key can be any word of length MAX_KEY_LENGTH(at the moment initialised to 1000), containing any printable characters except spaces
+//how does the encryption work? It is basically a circular shiftig encoding,
+// but every character is shifted to the right by the code of the correspondent character in the keyword(which is taken periodically)
+//I generate characters in th einterval [33, 126], the interval of the so-called "printable characters", except the space
+//note that if f(c) were ' '(where f is my crypting function), for any c character form the interval [33, 126], than I didn't know in the file where does the username end and where does the password start
+//but since no given password contains ' ', I can simply cunstruct a bijective function from [33, 126] -> to [33, 126]
 #define LOWER_BOUND 33
 #define UPPER_BOUND 126
 
@@ -20,8 +25,8 @@ char* decryptPassword(char* encryptedPassword, char* key)
         p=(int)encryptedPassword[i]-LOWER_BOUND-(int)key[i%strlen(key)];
         while(p<LOWER_BOUND) p+=UPPER_BOUND-LOWER_BOUND;
         password[i]=(char)p;
-        //I should'nt encrypt any character as '\0', also no char in password is '\0',  so I construct a bijective function f: [1, 255]->[1, 255]
     }
+    password[strlen(encryptedPassword)]='\0';
     return password;
 }
 char* encryptPassword(char* password, char* key)
@@ -31,14 +36,10 @@ char* encryptPassword(char* password, char* key)
     for(int i=0; i<strlen(password); i++)
     {
         code=password[i]+key[i%strlen(key)];
-        printf("after shifting code = %d\n", code);
         code%=(UPPER_BOUND-LOWER_BOUND);
-        printf("after smodulo code = %d\n", code);
         code+=LOWER_BOUND;
-        printf("after adding lower bound code = %d\n", code);
         encryptedPassword[i]=code;
-        printf("saved code = %c\n", encryptedPassword[i]);
-        //I should'nt encrypt any character as '\0', also no char in password is '\0',  so I construct a bijective function f: [1, 255]->[1, 255]
     }
+    encryptedPassword[strlen(password)]='\0';
     return encryptedPassword;
 }

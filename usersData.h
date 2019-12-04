@@ -21,7 +21,9 @@ typedef struct usersData
 }usersData;
 
 void readUsersDataFromFile(usersData* allUsers);
+void readOneUserDataFromFile(FILE * usersFile, usersData* allUsers, int index);
 void allocateMemoryForUsersData(usersData* allUsers);
+void addAdminToUsers(usersData* allUsers);
 void freeMemoryForUsersData(usersData* allUsers);
 int findUserName(usersData* allUsers, char name[]);
 bool correctPasswordForThisUser(usersData* allUsers, char password[], int index);

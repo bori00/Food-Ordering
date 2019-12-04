@@ -23,27 +23,36 @@
 
 void readUsersDataFromFile(usersData* allUsers)
 {
-    //todo factorize
-    //todo add admin
     FILE * usersFile;
     usersFile = fopen("usersData.txt", "r");
     allocateMemoryForUsersData(allUsers);
     fscanf(usersFile, "%s", allUsers->crytptKey);
     fscanf(usersFile, "%d", &allUsers->nrUsers);
+    addAdminToUsers(allUsers);
+    for(int i=1; i<allUsers->nrUsers; i++)
+    {
+        readOneUserDataFromFile(usersFile, allUsers, i);
+    }
+    fclose(usersFile);
+}
+
+void addAdminToUsers(usersData* allUsers)
+{
+    allUsers->nrUsers++;
+    allUsers->users[0].password="admin";
+    allUsers->users[0].name="admin";
+}
+
+void readOneUserDataFromFile(FILE * usersFile, usersData* allUsers, int index)
+{
     char* encryptedPassword = (char*) malloc(sizeof(char)*MAX_LENGTH_PASSWORD);
     char* decryptedPassword;
-    for(int i=0; i<allUsers->nrUsers; i++)
-    {
-        fscanf(usersFile, "%s", allUsers->users[i].name);
-        fscanf(usersFile, "%s", encryptedPassword);
-        decryptedPassword = decryptPassword(encryptedPassword, allUsers->crytptKey);
-        strcpy(allUsers->users[i].password, decryptedPassword);
-        //todo delete print
-        printf("the password %d is %s", i, allUsers->users[i].password);
-        free(decryptedPassword);
-    }
+    fscanf(usersFile, "%s", allUsers->users[index].name);
+    fscanf(usersFile, "%s", encryptedPassword);
+    decryptedPassword = decryptPassword(encryptedPassword, allUsers->crytptKey);
+    strcpy(allUsers->users[index].password, decryptedPassword);
+    free(decryptedPassword);
     free(encryptedPassword);
-    fclose(usersFile);
 }
 
 void allocateMemoryForUsersData(usersData* allUsers)
@@ -101,7 +110,7 @@ void setNewUsersNrInFile(usersData allUsers)
     fpos_t position;
     fgetpos(usersFile, &position);
     fsetpos(usersFile, &position);
-    fprintf(usersFile, "%10d", allUsers.nrUsers);
+    fprintf(usersFile, "%10d", allUsers.nrUsers-1); //admin isn't counted this time
     fflush(usersFile);
     fclose(usersFile);
 }

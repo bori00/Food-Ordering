@@ -67,7 +67,10 @@ void saveNewUserDataToFile(struct user* myUser, char* key)
 {
     FILE *usersFile;
     usersFile =fopen("usersData.txt", "a");
-    fprintf(usersFile, "%s %s\n", myUser->name, encryptPassword(myUser->password, key));
+    char *encryptedPassword = encryptPassword(myUser->password, key);
+    fprintf(usersFile, "%s %s\n", myUser->name, encryptedPassword);
+    printf("the length of the written password is %d\n", strlen(encryptedPassword));
+    free(encryptedPassword);
     fflush(usersFile);
     fclose(usersFile);
     //todo print on the first empty line
