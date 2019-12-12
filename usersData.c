@@ -106,11 +106,11 @@ void setNewUsersNrInFile(usersData allUsers)
     usersFile = fopen("usersData.txt", "r+");
     char s[MAX_KEY_LENGTH]; //to read the
     fgets(s, MAX_KEY_LENGTH, usersFile);
-    char c;
+    //fgetc(usersFile);
     fpos_t position;
     fgetpos(usersFile, &position);
     fsetpos(usersFile, &position);
-    fprintf(usersFile, "%10d", allUsers.nrUsers-1); //admin isn't counted this time
+    fprintf(usersFile, "%d", allUsers.nrUsers-1); //admin isn't counted this time
     fflush(usersFile);
     fclose(usersFile);
 }
