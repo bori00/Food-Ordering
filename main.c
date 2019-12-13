@@ -18,24 +18,26 @@ int main() {
 
 
     printf("Welcome to our restaurant! \n");
+
+    enum shopStates  {A, SIGN_IN_UP, CHOOSE_FOOD_TYPE, CHOOSE_SPEC_FOOD, CHOOSE_DRINK, DECIDE_CUTLERY, GET_ADDTTIONAL_INFO, SIGN_ORDER};
     while(state<MAX_STATE)
     {
         switch(state)
         {
-            case 1: userSignInOrUp(&thisUser, &allUsers);
+            case SIGN_IN_UP: userSignInOrUp(&thisUser, &allUsers);
                 state++;
                 break;
-            case 2: chooseFoodType(&thisUser.hisOrder, thisMenu, &state);
+            case CHOOSE_FOOD_TYPE: chooseFoodType(&thisUser.hisOrder, thisMenu, &state);
                 break;
-            case 3: chooseSpecFood(&thisUser.hisOrder, thisMenu, &state);
+            case CHOOSE_SPEC_FOOD: chooseSpecFood(&thisUser.hisOrder, thisMenu, &state);
                 break;
-            case 4: chooseDrink(&thisUser.hisOrder, thisMenu, &state);
+            case CHOOSE_DRINK: chooseDrink(&thisUser.hisOrder, thisMenu, &state);
                 break;
-            case 5: decideCutlery(&thisUser.hisOrder, thisMenu, &state);
+            case DECIDE_CUTLERY: decideCutlery(&thisUser.hisOrder, thisMenu, &state);
                 break;
-            case 6: getAdditionalInfo(&thisUser.hisOrder, &state);
+            case GET_ADDTTIONAL_INFO: getAdditionalInfo(&thisUser.hisOrder, &state);
                     break;
-            case 7: signOrder(thisUser, thisMenu, &state);
+            case SIGN_ORDER: signOrder(thisUser, thisMenu, &state);
                     break;
         }
     }
