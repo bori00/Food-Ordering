@@ -21,15 +21,7 @@ typedef struct usersData
 }usersData;
 
 void readUsersDataFromFile(usersData* allUsers);
-void readOneUserDataFromFile(FILE * usersFile, usersData* allUsers, int index);
-void allocateMemoryForUsersData(usersData* allUsers);
-void addAdminToUsers(usersData* allUsers);
 void freeMemoryForUsersData(usersData* allUsers);
-int findUserName(usersData* allUsers, char name[]);
-bool correctPasswordForThisUser(usersData* allUsers, char password[], int index);
-void saveNewUserDataToVector(usersData* allUsers, struct user* myUser);
 void userSignInOrUp(struct user * myUser, usersData *allUsers);
-void userSignIn(struct user* myUser, usersData* allUsers);
-void userSignUp(struct user* myUser, usersData* allUsers);
 
 #endif //FOODORDERING_USERSDATA_H

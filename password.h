@@ -17,9 +17,5 @@
 
 int getPasswordErrorCode(char* password, char* username);
 void printErrorMessage(int errorCode);
-bool validPasswordLength(char password[]);
-bool doesntContainUsername(char password[], char username[]);
-bool containsSpecialCharacter(char password[]);
-bool containsDigits(char password[]);
 
 #endif //FOODORDERING_PASSWORD_H

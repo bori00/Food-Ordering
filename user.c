@@ -9,6 +9,8 @@
 #include "menu.h"
 #include "choice.h"
 #include "crypt.h"
+#include "foodType.h"
+#include "specFood.h"
 
 void allocateMemoryForUser(struct user* myUser)
 {
@@ -40,14 +42,14 @@ void displayUserData(struct user myUser)
 void displayOrderDetails(struct user myUser, menu myMenu)
 {
     printf("Food items:\n");
-    printf("---%s %.2lf\n", myMenu.specFoods[myUser.hisOrder.foodType][myUser.hisOrder.specFood], myMenu.specFoodsPrice[myUser.hisOrder.foodType][myUser.hisOrder.specFood]);
-    if(myUser.hisOrder.drink>=0)  printf("---%s %.2lf\n", myMenu.drinks[myUser.hisOrder.drink], myMenu.drinksPrice[myUser.hisOrder.drink]);
+    printf("---%s %.2lf\n", myMenu.foodTypes[myUser.hisOrder.foodType].specFoods[myUser.hisOrder.specFood].name, myMenu.foodTypes[myUser.hisOrder.foodType].specFoods[myUser.hisOrder.specFood].price);
+    if(myUser.hisOrder.drink>=0)  printf("---%s %.2lf\n", myMenu.drinks[myUser.hisOrder.drink], myMenu.drinks[myUser.hisOrder.drink].price);
     printf("Cutlery: ");
     if(myUser.hisOrder.cutlery) printf("yes\n");
     else printf("No\n");
     if(myUser.hisOrder.existsAdditionalInfo) printf("Additional info: %s\n", myUser.hisOrder.additionalInfo);
-    double price = myMenu.specFoodsPrice[myUser.hisOrder.foodType][myUser.hisOrder.specFood];
-    if(myUser.hisOrder.drink>=0) price+=myMenu.drinksPrice[myUser.hisOrder.drink];
+    double price = myMenu.foodTypes[myUser.hisOrder.foodType].specFoods[myUser.hisOrder.specFood].price;
+    if(myUser.hisOrder.drink>=0) price+=myMenu.drinks[myUser.hisOrder.drink].price;
     printf("Payment amount: %.2lf\n", price);
 }
 

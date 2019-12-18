@@ -21,20 +21,7 @@
 
 
 
-void readUsersDataFromFile(usersData* allUsers)
-{
-    FILE * usersFile;
-    usersFile = fopen("usersData.txt", "r");
-    allocateMemoryForUsersData(allUsers);
-    fscanf(usersFile, "%s", allUsers->crytptKey);
-    fscanf(usersFile, "%d", &allUsers->nrUsers);
-    addAdminToUsers(allUsers);
-    for(int i=1; i<allUsers->nrUsers; i++)
-    {
-        readOneUserDataFromFile(usersFile, allUsers, i);
-    }
-    fclose(usersFile);
-}
+
 
 void addAdminToUsers(usersData* allUsers)
 {
@@ -62,6 +49,21 @@ void allocateMemoryForUsersData(usersData* allUsers)
         allocateMemoryForUser(&allUsers->users[i]);
     }
     allUsers->crytptKey= (char*) malloc(sizeof(char)*MAX_KEY_LENGTH);
+}
+
+void readUsersDataFromFile(usersData* allUsers)
+{
+    FILE * usersFile;
+    usersFile = fopen("usersData.txt", "r");
+    allocateMemoryForUsersData(allUsers);
+    fscanf(usersFile, "%s", allUsers->crytptKey);
+    fscanf(usersFile, "%d", &allUsers->nrUsers);
+    addAdminToUsers(allUsers);
+    for(int i=1; i<allUsers->nrUsers; i++)
+    {
+        readOneUserDataFromFile(usersFile, allUsers, i);
+    }
+    fclose(usersFile);
 }
 
 void freeMemoryForUsersData(usersData* allUsers)
@@ -115,12 +117,6 @@ void setNewUsersNrInFile(usersData allUsers)
     fclose(usersFile);
 }
 
-void userSignInOrUp(struct user * myUser, usersData *allUsers) {
-    printf("%s\na) %s\nb) %s\n", SIGN_IN_UP, SIGN_IN, SIGN_UP);
-    int choice = getChoiceIndex(2);
-    if (choice == 0) userSignIn(myUser, allUsers);
-    else userSignUp(myUser, allUsers);
-}
 
 void userSignIn(struct user* myUser, usersData* allUsers){
     printf("%s\n", SIGNING_IN);
@@ -156,4 +152,11 @@ void userSignUp(struct user* myUser, usersData* allUsers){
             userSignUp(myUser, allUsers);
         }
     }
+}
+
+void userSignInOrUp(struct user * myUser, usersData *allUsers) {
+    printf("%s\na) %s\nb) %s\n", SIGN_IN_UP, SIGN_IN, SIGN_UP);
+    int choice = getChoiceIndex(2);
+    if (choice == 0) userSignIn(myUser, allUsers);
+    else userSignUp(myUser, allUsers);
 }

@@ -14,7 +14,7 @@ int main() {
     menu thisMenu;
     printf("I am before loading data to menu\n");
     loadDataToMenu(&thisMenu);
-    printf("i loaded data to menu\n");
+    printf("I loaded data to menu\n");
     usersData allUsers;
     readUsersDataFromFile(&allUsers);
 

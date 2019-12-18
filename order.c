@@ -32,20 +32,20 @@ void chooseFoodType(struct order *myOrder, menu myMenu, int* step)
 
 void displaySpecFoodOptions(struct order myOrder, menu myMenu)
 {
-    printf("Please choose the type of %s\n", myMenu.foodTypes[myOrder.foodType]);
-    for (int i = 0; i <=myMenu.specFoodNr[myOrder.foodType]-1; i++) {
+    printf("Please choose the type of %s\n", myMenu.foodTypes[myOrder.foodType].name);
+    for (int i = 0; i <=myMenu.foodTypes[myOrder.foodType].specFoodNr-1; i++) {
         putchar('a' + i);
-        printf(") %s %.2lf\n", myMenu.specFoods[myOrder.foodType][i], myMenu.specFoodsPrice[myOrder.foodType][i]);
+        printf(") %s %.2lf\n", myMenu.foodTypes[myOrder.foodType].specFoods[i].name, myMenu.foodTypes[myOrder.foodType].specFoods[i].name);
     }
-    printf("%c) go back\n", (char)'a'+myMenu.specFoodNr[myOrder.foodType]);
+    printf("%c) go back\n", (char)'a'+myMenu.foodTypes[myOrder.foodType].specFoodNr);
 }
 
 void chooseSpecFood(struct order *myOrder,  menu myMenu, int* step)
 {
     displaySpecFoodOptions(*myOrder, myMenu);
-    int choiceIndex = getChoiceIndex(myMenu.specFoodNr[myOrder->foodType]+1);
-    goToNextState(step, myMenu.specFoodNr[myOrder->foodType], choiceIndex, 1);
-    if(choiceIndex<myMenu.specFoodNr[myOrder->foodType])
+    int choiceIndex = getChoiceIndex(myMenu.foodTypes[myOrder->foodType].specFoodNr+1);
+    goToNextState(step, myMenu.foodTypes[myOrder->foodType].specFoodNr, choiceIndex, 1);
+    if(choiceIndex<myMenu.foodTypes[myOrder->foodType].specFoodNr)
     {
         myOrder->specFood=choiceIndex;
     }
@@ -56,7 +56,7 @@ void displayDrinkOptions(struct order myOrder,  menu myMenu)
     printf("Please choose a drink to go with your %s\n",  myMenu.foodTypes[myOrder.foodType]);
     for (int i = 0; i <=myMenu.drinkNr-1; i++) {
         putchar('a' + i);
-        printf(") %s %.2lf\n", myMenu.drinks[i], myMenu.drinksPrice[i]);
+        printf(") %s %.2lf\n", myMenu.drinks[i], myMenu.drinks[i].price);
     }
     printf("%c) nothing 0.00\n", 'a'+myMenu.drinkNr);
     printf("%c) go back\n", (char)'a'+myMenu.drinkNr+1);

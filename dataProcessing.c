@@ -3,8 +3,10 @@
 //
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include "dataProcessing.h"
+#include "specFood.h"
 
 #define MAX_LINE_LENGTH 1000
 
@@ -23,28 +25,15 @@ void processingNameAndPrice(char* name, double* price, char* s)
     eraseSpacesFromEnd(name);
 }
 
-void splitIntoParts(char line[], char* names[], double prices[], int *nr)
-{
-    char* c;
-    char line2[MAX_LINE_LENGTH]=" "; //to make the string uniform, I append a ' ' to it at the beginning, and then I extract all the spaces with the strtok
-    strcat(line2, line);
-    c = strtok(line2, "(");
-    int index=0;
-    while ((c=strtok(NULL, ")"))!= NULL)
-    {
-        processingNameAndPrice(names[index], &prices[index], c);
-        c=strtok(NULL, "(");
-        index++;
-    }
-    *nr=index;
-}
-
-
 void extractStringUntilChar(char result[], char original[],  char c)
 {
+    printf("I start the extraction\n");
     char* newBeginning = strchr(original, c);
+    printf("I define dthe new beginning %s\n", newBeginning);
     *newBeginning='\0';
+    printf("I put the end character:%s\n", original);
     strcpy(result, original);
+    printf("I will return the extracted string %s\n", result);
     strcpy(original, newBeginning+1);
 }
 

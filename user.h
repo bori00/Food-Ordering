@@ -22,8 +22,6 @@ struct user
 
 void allocateMemoryForUser(struct user* myUser);
 void freeMemoryForUser(struct user* myUser);
-void displayUserData(struct user myUser);
-void displayOrderDetails(struct user myUser,  menu myMenu);
 void signOrder(struct user myUser,menu myMenu, int*state);
 void getUserData(struct user* myUser);
 void saveNewUserDataToFile(struct user* myUser, char* key);
