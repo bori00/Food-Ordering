@@ -12,7 +12,9 @@ int main() {
     struct user thisUser;
     allocateMemoryForUser(&thisUser);
     menu thisMenu;
+    printf("I am before loading data to menu\n");
     loadDataToMenu(&thisMenu);
+    printf("i loaded data to menu\n");
     usersData allUsers;
     readUsersDataFromFile(&allUsers);
 

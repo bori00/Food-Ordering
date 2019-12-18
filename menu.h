@@ -20,13 +20,15 @@ typedef struct menus
     double* drinksPrice;
 }menu;
 
+
+//todo
 void allocateMemoryFodFoodTypes(menu *myMenu);
 void allocateMemoryForDrinks(menu* myMenu);
 void loadDataToMenu(menu *myMenu);
-void saveFoodsDataToFile(char* fileName, menu* myMenu);
-void saveDrinksDataToFile(char* fileName, menu* myMenu);
-void freeMemoryFodFoods(menu *myMenu);
-void freeMemoryFordDrinks(menu* myMenu);
+//void saveFoodsDataToFile(char* fileName, menu* myMenu);
+//void saveDrinksDataToFile(char* fileName, menu* myMenu);
+//void freeMemoryFodFoods(menu *myMenu);
+//void freeMemoryFordDrinks(menu* myMenu);
 void freeMemoryOfMenu(menu* myMenu);
 
 #endif //FOODORDERING_MENU_H

@@ -74,6 +74,7 @@ void freeMemoryOfMenu(menu* myMenu)
 
 void readFoodData(FILE* menuFile, menu* myMenu)
 {
+    printf("read food data started\n");
     if(menuFile==stdin) printf(">");
     fscanf(menuFile, "%d", &myMenu->foodTypeNr);
     allocateMemoryFodFoodTypes(myMenu);
@@ -87,10 +88,12 @@ void readFoodData(FILE* menuFile, menu* myMenu)
         allocateMemoryForSpecificFood(myMenu, i);
         splitIntoParts(thisFoodTypeData, myMenu->specFoods[i], myMenu->specFoodsPrice[i], &myMenu->specFoodNr[i]);
     }
+    printf("read food data finished\n");
 }
 
 void readDrinkData(FILE* menuFile, menu* myMenu)
 {
+    printf("read drinks data started\n");
     if(menuFile==stdin) printf(">");
     fscanf(menuFile, "%d", &myMenu->drinkNr);
     allocateMemoryForDrinks(myMenu);
@@ -99,11 +102,11 @@ void readDrinkData(FILE* menuFile, menu* myMenu)
     while((endl=fgetc(menuFile))!='\n' && endl!=EOF);
     fgets(drinksData, MAX_LINE_LENGTH, menuFile);
     splitIntoParts(drinksData, myMenu->drinks, myMenu->drinksPrice, &myMenu->drinkNr);
+    //printf("read drinks data finished\n");
 }
 
 void saveFoodsDataToFile(char* fileName, menu* myMenu)
 {
-    //todo print foods nr
     FILE * menuFile;
     menuFile = fopen (fileName,"w");
     fprintf(menuFile, "%d:\n", myMenu->foodTypeNr);
@@ -137,6 +140,7 @@ void loadDataToMenu(menu *myMenu)
     menuFile = fopen ("data.txt","r");
     if(menuFile==NULL) menuFile=stdin;
     if(menuFile==stdin) printf("%s\n", LOAD_DATA);
+    printf("I set the file\n");
     readFoodData(menuFile, myMenu);
     readDrinkData(menuFile, myMenu);
     if(menuFile==stdin){
