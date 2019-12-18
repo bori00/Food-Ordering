@@ -103,13 +103,12 @@ void readDrinkData(FILE* menuFile, menu* myMenu)
 
 void saveFoodsDataToFile(char* fileName, menu* myMenu)
 {
-    //todo print foods nr
     FILE * menuFile;
     menuFile = fopen (fileName,"w");
     fprintf(menuFile, "%d:\n", myMenu->foodTypeNr);
     for(int i=0; i<myMenu->foodTypeNr; i++)
     {
-        fprintf(menuFile, "%s: ", myMenu->foodTypes[i]);
+        fprintf(menuFile, "%s %d: ", myMenu->foodTypes[i], myMenu->specFoodNr[i]);
         for(int j=0; j<myMenu->specFoodNr[i]; j++)
         {
             fprintf(menuFile, "(%s - %.2lf) ", myMenu->specFoods[i][j], myMenu->specFoodsPrice[i][j]);
@@ -130,6 +129,7 @@ void saveDrinksDataToFile(char* fileName, menu* myMenu)
     }
     fprintf(menuFile, "\n");
 }
+
 
 void loadDataToMenu(menu *myMenu)
 {
