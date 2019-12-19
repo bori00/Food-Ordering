@@ -27,13 +27,9 @@ void processingNameAndPrice(char* name, double* price, char* s)
 
 void extractStringUntilChar(char result[], char original[],  char c)
 {
-    printf("I start the extraction\n");
     char* newBeginning = strchr(original, c);
-    printf("I define dthe new beginning %s\n", newBeginning);
     *newBeginning='\0';
-    printf("I put the end character:%s\n", original);
     strcpy(result, original);
-    printf("I will return the extracted string %s\n", result);
     strcpy(original, newBeginning+1);
 }
 

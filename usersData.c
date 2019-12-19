@@ -19,10 +19,6 @@
 #define DUPLICATE_USER	"Please choose another username!"
 #define INCORRECT_PASSWORD	"Incorrect password"
 
-
-
-
-
 void addAdminToUsers(usersData* allUsers)
 {
     allUsers->nrUsers++;
@@ -46,7 +42,7 @@ void allocateMemoryForUsersData(usersData* allUsers)
 {
     for(int i=0; i<MAX_NO_USERS; i++)
     {
-        allocateMemoryForUser(&allUsers->users[i]);
+        allUsers->users[i] = createUser();
     }
     allUsers->crytptKey= (char*) malloc(sizeof(char)*MAX_KEY_LENGTH);
 }
@@ -56,6 +52,10 @@ void readUsersDataFromFile(usersData* allUsers)
     FILE * usersFile;
     usersFile = fopen("usersData.txt", "r");
     allocateMemoryForUsersData(allUsers);
+    {
+        destroyUser(&allUsers->users[i]);
+    }
+    free(allUsers->crytptKey);
     fscanf(usersFile, "%s", allUsers->crytptKey);
     fscanf(usersFile, "%d", &allUsers->nrUsers);
     addAdminToUsers(allUsers);
@@ -66,13 +66,9 @@ void readUsersDataFromFile(usersData* allUsers)
     fclose(usersFile);
 }
 
-void freeMemoryForUsersData(usersData* allUsers)
+void destroyUsersData(usersData* allUsers)
 {
     for(int i=0; i<MAX_NO_USERS; i++)
-    {
-        freeMemoryForUser(&allUsers->users[i]);
-    }
-    free(allUsers->crytptKey);
 }
 
 int findUserName(usersData* allUsers, char name[])

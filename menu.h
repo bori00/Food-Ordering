@@ -21,6 +21,6 @@ typedef struct
 
 
 void loadDataToMenu(menu *myMenu);
-void freeMemoryOfMenu(menu* myMenu);
+void destroyMenu(menu* myMenu);
 
 #endif //FOODORDERING_MENU_H

@@ -9,17 +9,13 @@
 int main() {
 
     int state = 1;
-    struct user thisUser;
-    allocateMemoryForUser(&thisUser);
+    struct user thisUser = createUser();
     menu thisMenu;
-    printf("I am before loading data to menu\n");
     loadDataToMenu(&thisMenu);
-    printf("I loaded data to menu\n");
     usersData allUsers;
     readUsersDataFromFile(&allUsers);
 
-
-    printf("Welcome to our restaurant! \n");
+    printf("Welcome to our restaurant!\n");
 
     enum shopStates  {A, SIGN_IN_UP, CHOOSE_FOOD_TYPE, CHOOSE_SPEC_FOOD, CHOOSE_DRINK, DECIDE_CUTLERY, GET_ADDTTIONAL_INFO, SIGN_ORDER};
     while(state<MAX_STATE)
@@ -43,9 +39,9 @@ int main() {
                     break;
         }
     }
-    freeMemoryOfMenu(&thisMenu);
-    freeMemoryForUser(&thisUser);
-    freeMemoryForUsersData(&allUsers);
+    destroyMenu(&thisMenu);
+    destroyUser(&thisUser);
+    destroyUsersData(&allUsers);
     printf("Contract signed! Enjoy your meal!\n");
     return 0;
 }

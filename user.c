@@ -12,13 +12,15 @@
 #include "foodType.h"
 #include "specFood.h"
 
-void allocateMemoryForUser(struct user* myUser)
+struct user createUser()
 {
-    myUser->name = (char*) malloc(MAX_LENGTH_USERNAME* sizeof(char));
-    myUser->password = (char*) malloc(MAX_LENGTH_PASSWORD* sizeof(char));
+    struct user myUser;
+    myUser.name = (char*) malloc(MAX_LENGTH_USERNAME* sizeof(char));
+    myUser.password = (char*) malloc(MAX_LENGTH_PASSWORD* sizeof(char));
+    return myUser;
 }
 
-void freeMemoryForUser(struct user* myUser)
+void destroyUser(struct user* myUser)
 {
     free(myUser->name);
     free(myUser->password);
@@ -43,7 +45,7 @@ void displayOrderDetails(struct user myUser, menu myMenu)
 {
     printf("Food items:\n");
     printf("---%s %.2lf\n", myMenu.foodTypes[myUser.hisOrder.foodType].specFoods[myUser.hisOrder.specFood].name, myMenu.foodTypes[myUser.hisOrder.foodType].specFoods[myUser.hisOrder.specFood].price);
-    if(myUser.hisOrder.drink>=0)  printf("---%s %.2lf\n", myMenu.drinks[myUser.hisOrder.drink], myMenu.drinks[myUser.hisOrder.drink].price);
+    if(myUser.hisOrder.drink>=0)  printf("---%s %.2lf\n", myMenu.drinks[myUser.hisOrder.drink].name, myMenu.drinks[myUser.hisOrder.drink].price);
     printf("Cutlery: ");
     if(myUser.hisOrder.cutlery) printf("yes\n");
     else printf("No\n");
@@ -74,6 +76,5 @@ void saveNewUserDataToFile(struct user* myUser, char* key)
     free(encryptedPassword);
     fflush(usersFile);
     fclose(usersFile);
-    //todo print on the first empty line
 }
 

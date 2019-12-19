@@ -18,5 +18,6 @@ foodType createFoodType();
 void setSpecFoodsNr(foodType* myFoodType, int nr);
 void destroyFoodType(foodType* myFoodType);
 void splitIntoPartsSpecFoodLine(foodType* myFoodType, char line[]);
+void displaySpecFoodOptions(foodType myFoodType);
 
 #endif //FOODORDERING_FOODTYPE_H

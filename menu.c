@@ -53,7 +53,7 @@ void freeMemoryFordDrinks(menu* myMenu)
     free(myMenu->drinks);
 }
 
-void freeMemoryOfMenu(menu* myMenu)
+void destroyMenu(menu* myMenu)
 {
     freeMemoryFodFoods(myMenu);
     freeMemoryFordDrinks(myMenu);
@@ -61,29 +61,23 @@ void freeMemoryOfMenu(menu* myMenu)
 
 void readFoodData(FILE* menuFile, menu* myMenu)
 {
-    printf("I started reading foods data\n");
     if(menuFile==stdin) printf(">");
     fscanf(menuFile, "%d", &myMenu->foodTypeNr);
     allocateMemoryFodFoodTypes(myMenu);
-    printf("I allocated memory for types\n");
     char endl,  thisFoodTypeData[MAX_LINE_LENGTH];
     while((endl=fgetc(menuFile))!='\n' && endl!=EOF);
     for(int i=0; i<myMenu->foodTypeNr; i++) {
         if(menuFile==stdin) printf(">");
         fgets(thisFoodTypeData, MAX_LINE_LENGTH, menuFile);
-        printf("the new line is%s\n", thisFoodTypeData);
         extractStringUntilChar(myMenu->foodTypes[i].name, thisFoodTypeData, ' ');
-        printf("the name of the new foodtype is %s\n", myMenu->foodTypes[i].name);
         sscanf(thisFoodTypeData, "%d", &myMenu->foodTypes[i].specFoodNr);
         allocateMemoryForSpecificFood(myMenu, i, myMenu->foodTypes[i].specFoodNr);
-        printf("I allocated memory for spec. food\n");
         splitIntoPartsSpecFoodLine(&myMenu->foodTypes[i], thisFoodTypeData);
     }
 }
 
 void readDrinkData(FILE* menuFile, menu* myMenu)
 {
-    printf("I started reading drinks data\n");
     if(menuFile==stdin) printf(">");
     fscanf(menuFile, "%d", &myMenu->drinkNr);
     allocateMemoryForDrinks(myMenu);

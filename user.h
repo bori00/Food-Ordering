@@ -20,8 +20,8 @@ struct user
     struct order hisOrder;
 };
 
-void allocateMemoryForUser(struct user* myUser);
-void freeMemoryForUser(struct user* myUser);
+struct user createUser();
+void destroyUser(struct user* myUser);
 void signOrder(struct user myUser,menu myMenu, int*state);
 void getUserData(struct user* myUser);
 void saveNewUserDataToFile(struct user* myUser, char* key);

@@ -21,7 +21,7 @@ typedef struct usersData
 }usersData;
 
 void readUsersDataFromFile(usersData* allUsers);
-void freeMemoryForUsersData(usersData* allUsers);
+void destroyUsersData(usersData* allUsers);
 void userSignInOrUp(struct user * myUser, usersData *allUsers);
 
 #endif //FOODORDERING_USERSDATA_H

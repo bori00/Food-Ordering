@@ -14,7 +14,7 @@ void displayFoodTypeOptions(struct order myOrder, menu myMenu)
     printf("Please choose the food you feel like eating today:\n");
     for (int i = 0; i <=myMenu.foodTypeNr-1; i++) {
         putchar('a' + i);
-        printf(") %s\n", myMenu.foodTypes[i]);
+        printf(") %s\n", myMenu.foodTypes[i].name);
     }
     printf("%c) go back\n", (char)'a'+myMenu.foodTypeNr);
 }
@@ -24,25 +24,15 @@ void chooseFoodType(struct order *myOrder, menu myMenu, int* step)
     displayFoodTypeOptions(*myOrder, myMenu);
     int choiceIndex = getChoiceIndex(myMenu.foodTypeNr+1);
     goToNextState(step, myMenu.foodTypeNr, choiceIndex, 1);
-    if(choiceIndex<myMenu.drinkNr)
+    if(choiceIndex<myMenu.foodTypeNr)
     {
         myOrder->foodType=choiceIndex;
     }
 }
 
-void displaySpecFoodOptions(struct order myOrder, menu myMenu)
-{
-    printf("Please choose the type of %s\n", myMenu.foodTypes[myOrder.foodType].name);
-    for (int i = 0; i <=myMenu.foodTypes[myOrder.foodType].specFoodNr-1; i++) {
-        putchar('a' + i);
-        printf(") %s %.2lf\n", myMenu.foodTypes[myOrder.foodType].specFoods[i].name, myMenu.foodTypes[myOrder.foodType].specFoods[i].name);
-    }
-    printf("%c) go back\n", (char)'a'+myMenu.foodTypes[myOrder.foodType].specFoodNr);
-}
-
 void chooseSpecFood(struct order *myOrder,  menu myMenu, int* step)
 {
-    displaySpecFoodOptions(*myOrder, myMenu);
+    displaySpecFoodOptions(myMenu.foodTypes[myOrder->foodType]);
     int choiceIndex = getChoiceIndex(myMenu.foodTypes[myOrder->foodType].specFoodNr+1);
     goToNextState(step, myMenu.foodTypes[myOrder->foodType].specFoodNr, choiceIndex, 1);
     if(choiceIndex<myMenu.foodTypes[myOrder->foodType].specFoodNr)
@@ -53,10 +43,10 @@ void chooseSpecFood(struct order *myOrder,  menu myMenu, int* step)
 
 void displayDrinkOptions(struct order myOrder,  menu myMenu)
 {
-    printf("Please choose a drink to go with your %s\n",  myMenu.foodTypes[myOrder.foodType]);
+    printf("Please choose a drink to go with your %s\n",  myMenu.foodTypes[myOrder.foodType].name);
     for (int i = 0; i <=myMenu.drinkNr-1; i++) {
         putchar('a' + i);
-        printf(") %s %.2lf\n", myMenu.drinks[i], myMenu.drinks[i].price);
+        printf(") %s %.2lf\n", myMenu.drinks[i].name, myMenu.drinks[i].price);
     }
     printf("%c) nothing 0.00\n", 'a'+myMenu.drinkNr);
     printf("%c) go back\n", (char)'a'+myMenu.drinkNr+1);
