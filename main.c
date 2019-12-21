@@ -7,17 +7,19 @@
 #define MAX_STATE 8
 
 int main() {
-
-    int state = 1;
     struct user thisUser = createUser();
     menu thisMenu;
+    printf("before loading to menu\n");
     loadDataToMenu(&thisMenu);
     usersData allUsers;
+    printf("loaded to menu, beffore reading users data from file\n");
     readUsersDataFromFile(&allUsers);
 
     printf("Welcome to our restaurant!\n");
 
     enum shopStates  {A, SIGN_IN_UP, CHOOSE_FOOD_TYPE, CHOOSE_SPEC_FOOD, CHOOSE_DRINK, DECIDE_CUTLERY, GET_ADDTTIONAL_INFO, SIGN_ORDER};
+    int state = SIGN_IN_UP;
+
     while(state<MAX_STATE)
     {
         switch(state)

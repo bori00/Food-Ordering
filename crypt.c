@@ -38,8 +38,11 @@ char* encryptPassword(char* password, char* key)
         code=password[i]+key[i%strlen(key)];
         code%=(UPPER_BOUND-LOWER_BOUND);
         code+=LOWER_BOUND;
+        printf("the code is %d\n", code);
         encryptedPassword[i]=code;
     }
+
     encryptedPassword[strlen(password)]='\0';
+    printf("the encrypted password is %s\n", encryptedPassword);
     return encryptedPassword;
 }

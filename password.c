@@ -40,8 +40,11 @@ bool containsSpecialCharacter(char password[])
 
 bool containsDigits(char password[])
 {
+    printf("the password is %s\n", password);
     char digits[10]="0123456789";
-    return strpbrk(password, digits)!=NULL;
+    char* ptr = strpbrk(password, digits);
+    printf("it contains digit at %s\n", ptr);
+    return ptr!=NULL;
 }
 
 int getPasswordErrorCode(char* password, char* username)//return -1 if no error found

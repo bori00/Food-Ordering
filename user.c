@@ -69,10 +69,17 @@ void  signOrder(struct user myUser, menu myMenu, int* state)
 
 void saveNewUserDataToFile(struct user* myUser, char* key)
 {
+    printf("printing new user to file started\n");
     FILE *usersFile;
-    usersFile =fopen("usersData.txt", "a");
+    usersFile = fopen("usersData.txt", "a");
+    if(usersFile==NULL) printf(" I cant find the file\n");
     char *encryptedPassword = encryptPassword(myUser->password, key);
+    printf("I got the new name %s and password %s\n", myUser->name, encryptedPassword);
+    //int success = fprintf(usersFile, "new values\n");
+    //printf("random string was written to file, success = %d\n", success);
+    //todo: print fails
     fprintf(usersFile, "%s %s\n", myUser->name, encryptedPassword);
+    printf("I printed into file\n");
     free(encryptedPassword);
     fflush(usersFile);
     fclose(usersFile);
