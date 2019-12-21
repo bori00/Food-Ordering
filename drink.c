@@ -17,9 +17,7 @@ void createDrink(drink* newDrink)
 
 void destroyDrink(drink* myDrink)
 {
-    printf("trying to destroy drink\n");
     free(myDrink->name);
-    printf("destroyed it\n");
 }
 
 void splitIntoPartsDrinksLine(drink drinks[], char line[])

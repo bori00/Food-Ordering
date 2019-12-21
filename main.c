@@ -40,11 +40,8 @@ int main() {
                     break;
         }
     }
-    printf("before destroying menu\n");
     destroyMenu(&thisMenu);
-    printf("before destroying thisUser\n");
     destroyUser(&thisUser);
-    printf("before destroying allUsers\n");
     destroyUsersData(&allUsers);
     printf("Contract signed! Enjoy your meal!\n");
     return 0;
