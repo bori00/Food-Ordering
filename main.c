@@ -7,12 +7,11 @@
 #define MAX_STATE 8
 
 int main() {
-    struct user thisUser = createUser();
+    struct user thisUser;
+    createUser(&thisUser);
     menu thisMenu;
-    printf("before loading to menu\n");
     loadDataToMenu(&thisMenu);
     usersData allUsers;
-    printf("loaded to menu, beffore reading users data from file\n");
     readUsersDataFromFile(&allUsers);
 
     printf("Welcome to our restaurant!\n");
@@ -41,8 +40,11 @@ int main() {
                     break;
         }
     }
+    printf("before destroying menu\n");
     destroyMenu(&thisMenu);
+    printf("before destroying thisUser\n");
     destroyUser(&thisUser);
+    printf("before destroying allUsers\n");
     destroyUsersData(&allUsers);
     printf("Contract signed! Enjoy your meal!\n");
     return 0;

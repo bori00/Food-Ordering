@@ -4,21 +4,22 @@
 
 #include "drink.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include "dataProcessing.h"
 
 #define MAX_LINE_LENGTH 200
 
-drink createDrink()
+void createDrink(drink* newDrink)
 {
-    drink newDrink;
-    newDrink.name = (char*) malloc(MAX_DRINKNAME* sizeof(char));
-    return newDrink;
+    newDrink->name = (char*) malloc(MAX_DRINKNAME* sizeof(char));
 }
 
 void destroyDrink(drink* myDrink)
 {
+    printf("trying to destroy drink\n");
     free(myDrink->name);
+    printf("destroyed it\n");
 }
 
 void splitIntoPartsDrinksLine(drink drinks[], char line[])

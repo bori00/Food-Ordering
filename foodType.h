@@ -14,7 +14,7 @@ typedef struct {
     specFood* specFoods;
 }foodType;
 
-foodType createFoodType();
+void createFoodType(foodType* newFoodType);
 void setSpecFoodsNr(foodType* myFoodType, int nr);
 void destroyFoodType(foodType* myFoodType);
 void splitIntoPartsSpecFoodLine(foodType* myFoodType, char line[]);

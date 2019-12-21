@@ -12,6 +12,6 @@ typedef struct {
     double price;
 }specFood;
 
-specFood createSpecFood();
+void createSpecFood(specFood* mySpecFood);
 void destroySpecFood(specFood* mySpecFood);
 #endif //FOODORDERING_SPECFOOD_H

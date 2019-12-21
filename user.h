@@ -10,8 +10,8 @@
 #include "menu.h"
 
 
-#define MAX_LENGTH_USERNAME 20
-#define MAX_LENGTH_PASSWORD 20
+#define MAX_LENGTH_USERNAME 100
+#define MAX_LENGTH_PASSWORD 100
 
 struct user
 {
@@ -20,7 +20,7 @@ struct user
     struct order hisOrder;
 };
 
-struct user createUser();
+void createUser(struct user* myUser);
 void destroyUser(struct user* myUser);
 void signOrder(struct user myUser,menu myMenu, int*state);
 void getUserData(struct user* myUser);

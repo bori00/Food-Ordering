@@ -5,7 +5,7 @@
 #ifndef FOODORDERING_PASSWORD_H
 #define FOODORDERING_PASSWORD_H
 
-#define MAX_LENGTH_PASSWORD 20
+#define MAX_LENGTH_PASSWORD 100
 #define MIN_LENGTH_PASSWORD 7
 #define SPECIAL_CHARACTERS "._!"
 #define ERROR_PASSWORD_LONG	"The password must be at least 7 chars long"

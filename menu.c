@@ -18,7 +18,7 @@ void allocateMemoryFodFoodTypes(menu *myMenu)
     myMenu->foodTypes = (foodType*) malloc(myMenu->foodTypeNr*sizeof(foodType));
     for(int i=0; i<myMenu->foodTypeNr; i++)
     {
-        myMenu->foodTypes[i] = createFoodType();
+        createFoodType(&myMenu->foodTypes[i]);
     }
 }
 
@@ -32,7 +32,7 @@ void allocateMemoryForDrinks(menu* myMenu)
     myMenu->drinks = (drink*) malloc(sizeof(drink)*myMenu->drinkNr);
     for(int i=0; i<myMenu->drinkNr; i++)
     {
-        myMenu->drinks[i] = createDrink();
+        createDrink(&myMenu->drinks[i]);
     }
 }
 
@@ -45,7 +45,7 @@ void freeMemoryFodFoods(menu *myMenu)
     free(myMenu->foodTypes);
 }
 
-void freeMemoryFordDrinks(menu* myMenu)
+void freeMemoryForDrinks(menu* myMenu)
 {
     for(int i=0; i<myMenu->drinkNr; i++){
         destroyDrink(&myMenu->drinks[i]);
@@ -56,7 +56,7 @@ void freeMemoryFordDrinks(menu* myMenu)
 void destroyMenu(menu* myMenu)
 {
     freeMemoryFodFoods(myMenu);
-    freeMemoryFordDrinks(myMenu);
+    freeMemoryForDrinks(myMenu);
 }
 
 void readFoodData(FILE* menuFile, menu* myMenu)

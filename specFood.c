@@ -5,11 +5,9 @@
 #include "specFood.h"
 #include <stdlib.h>
 
-specFood createSpecFood()
+void createSpecFood(specFood* newSpecFood)
 {
-    specFood newSpecFood;
-    newSpecFood.name = (char*) malloc(MAX_SPECFOODNAME*sizeof(char));
-    return newSpecFood;
+    newSpecFood->name = (char*) malloc(MAX_SPECFOODNAME*sizeof(char));
 }
 
 void destroySpecFood(specFood* mySpecFood)

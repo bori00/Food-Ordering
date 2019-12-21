@@ -42,7 +42,7 @@ void allocateMemoryForUsersData(usersData* allUsers)
 {
     for(int i=0; i<MAX_NO_USERS; i++)
     {
-        allUsers->users[i] = createUser();
+        createUser(&allUsers->users[i]);
     }
     allUsers->crytptKey= (char*) malloc(sizeof(char)*MAX_KEY_LENGTH);
 }
@@ -52,7 +52,6 @@ void readUsersDataFromFile(usersData* allUsers)
     FILE * usersFile;
     usersFile = fopen("usersData.txt", "r");
     allocateMemoryForUsersData(allUsers);
-    free(allUsers->crytptKey);
     fscanf(usersFile, "%s", allUsers->crytptKey);
     fscanf(usersFile, "%d", &allUsers->nrUsers);
     addAdminToUsers(allUsers);
@@ -65,7 +64,11 @@ void readUsersDataFromFile(usersData* allUsers)
 
 void destroyUsersData(usersData* allUsers)
 {
-    for(int i=0; i<MAX_NO_USERS; i++) destroyUser(&allUsers->users[i]);
+    for(int i=0; i<MAX_NO_USERS; i++)
+    {
+        destroyUser(&allUsers->users[i]);
+    }
+    free(allUsers->crytptKey);
 }
 
 int findUserName(usersData* allUsers, char name[])
@@ -89,7 +92,6 @@ bool correctPasswordForThisUser(usersData* allUsers, char password[], int index)
 
 void saveNewUserDataToVector(usersData* allUsers, struct user* myUser)
 {
-    printf("save new user data to vector\n");
     (allUsers->nrUsers)++;
    //note: memory is already allocated
     strcpy(allUsers->users[allUsers->nrUsers-1].name, myUser->name);
@@ -98,7 +100,6 @@ void saveNewUserDataToVector(usersData* allUsers, struct user* myUser)
 
 void setNewUsersNrInFile(usersData allUsers)
 {
-    printf("setting new nr started\n");
     FILE * usersFile;
     usersFile = fopen("usersData.txt", "r+");
     char s[MAX_KEY_LENGTH]; //to read the
@@ -107,9 +108,7 @@ void setNewUsersNrInFile(usersData allUsers)
     fpos_t position;
     fgetpos(usersFile, &position);
     fsetpos(usersFile, &position);
-    printf("set position\n");
     fprintf(usersFile, "%10d", allUsers.nrUsers-1); //admin isn't counted this time
-    printf("printed nr\n");
     fflush(usersFile);
     fclose(usersFile);
 }

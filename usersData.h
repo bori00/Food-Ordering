@@ -5,14 +5,14 @@
 #ifndef FOODORDERING_USERSDATA_H
 #define FOODORDERING_USERSDATA_H
 
-#define MAX_NO_USERS 1000
-#define MAX_KEY_LENGTH 1000
+#define MAX_NO_USERS 100
+#define MAX_KEY_LENGTH 100
 
 #include <stdbool.h>
 #include "user.h"
 
 
-typedef struct usersData
+typedef struct
 {
     char* crytptKey;
     int nrUsers;

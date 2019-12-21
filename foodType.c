@@ -10,11 +10,10 @@
 
 #define MAX_LINE_LENGTH 200
 
-foodType createFoodType()
+void createFoodType(foodType* newFoodType)
 {
-    foodType newFoodType;
-    newFoodType.name = (char*) malloc(sizeof(char)*MAX_FOODTYPE_LENGTH);
-    return newFoodType;
+    newFoodType->name = (char*) malloc(sizeof(char)*MAX_FOODTYPE_LENGTH);
+
 }
 
 void setSpecFoodsNr(foodType* myFoodType, int nr)
@@ -23,7 +22,7 @@ void setSpecFoodsNr(foodType* myFoodType, int nr)
     myFoodType->specFoods = (specFood*) malloc(myFoodType->specFoodNr* sizeof(specFood));
     for(int i=0; i<myFoodType->specFoodNr; i++)
     {
-        myFoodType->specFoods[i] = createSpecFood();
+        createSpecFood(&myFoodType->specFoods[i]);
     }
 }
 

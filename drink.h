@@ -14,7 +14,7 @@ typedef struct
     double price;
 }drink;
 
-drink createDrink();
+void createDrink(drink* myDrink);
 void destroyDrink(drink* myDrink);
 void splitIntoPartsDrinksLine(drink drinks[], char line[]);
 
