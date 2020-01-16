@@ -19,13 +19,9 @@ struct order
 
 };
 
-void displayFoodTypeOptions(struct order myOrder, menu myMenu);
 void chooseFoodType(struct order *myOrder,  menu myMenu, int *step);
-void displaySpecFoodOptions(struct order myOrder,menu myMenu);
 void chooseSpecFood(struct order *myOrder, menu myMenu, int *step);
-void displayDrinkOptions(struct order myOrder, menu myMenu);
 void chooseDrink(struct order *myOrder, menu myMenu, int *step);
-void displayCutleryOptions();
 void decideCutlery(struct order *myOrder, menu myMenu, int *step);
 void getAdditionalInfo(struct order *myOrder, int* step);
 

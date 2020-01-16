@@ -40,6 +40,7 @@ char* encryptPassword(char* password, char* key)
         code+=LOWER_BOUND;
         encryptedPassword[i]=code;
     }
+
     encryptedPassword[strlen(password)]='\0';
     return encryptedPassword;
 }

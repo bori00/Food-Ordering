@@ -6,14 +6,7 @@
 #include "password.h"
 #include "string.h"
 
-int getPasswordErrorCode(char* password, char* username)//return -1 if no error found
-{
-    if(!validPasswordLength(password)) return 0;
-    if(!doesntContainUsername(password, username)) return 1;
-    if(!containsSpecialCharacter(password)) return 2;
-    if(!containsDigits(password)) return 3;
-    return -1;
-}
+
 
 void printErrorMessage(int errorCode)
 {
@@ -48,5 +41,15 @@ bool containsSpecialCharacter(char password[])
 bool containsDigits(char password[])
 {
     char digits[10]="0123456789";
-    return strpbrk(password, digits)!=NULL;
+    char* ptr = strpbrk(password, digits);
+    return ptr!=NULL;
+}
+
+int getPasswordErrorCode(char* password, char* username)//return -1 if no error found
+{
+    if(!validPasswordLength(password)) return 0;
+    if(!doesntContainUsername(password, username)) return 1;
+    if(!containsSpecialCharacter(password)) return 2;
+    if(!containsDigits(password)) return 3;
+    return -1;
 }
